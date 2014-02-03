@@ -1,21 +1,22 @@
 (function($) {
   $.fn.fabulous = function(period) {
+    period = ~~period || 52;
     var a = +new Date();
     var styleTagId = "fabulous-styles",
         classPrefix = "fabulous-selection-",
         style = $("<style>").attr("id", styleTagId).appendTo("body"),
-        period = ~~period || 52,
         styles = [],
         scale = (function () {
           var uninterp = uninterpolate(0, period),
-              interp = interpolate(0, 360);
-              return function(x) {
-                return interp(uninterp(x));
-              };
+          interp = interpolate(0, 360);
+          return function(x) {
+            return interp(uninterp(x));
+          };
         })();
 
     Array.apply(null, Array(period)).map(function (_, i) {return i;}).forEach(function(i) {
       styles.push("." + classPrefix + i + "::selection { background-color: white; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+      styles.push("." + classPrefix + i + "::-moz-selection { background-color: white; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
     });
     style.html(styles.join("\n"));
 
