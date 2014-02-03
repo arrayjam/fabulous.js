@@ -1,1 +1,1 @@
-$(".hello, .bye").fabulous();
+$(".hello, .bye").fabulous($("*").length / 20);
