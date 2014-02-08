@@ -15,8 +15,8 @@
         })();
 
     Array.apply(null, Array(period)).map(function (_, i) {return i;}).forEach(function(i) {
-      styles.push("." + classPrefix + i + "::selection { background-color: white; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
-      styles.push("." + classPrefix + i + "::-moz-selection { background-color: white; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+      styles.push("." + classPrefix + i + "::selection { background-color: inherit; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+      styles.push("." + classPrefix + i + "::-moz-selection { background-color: inherit; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
     });
     style.html(styles.join("\n"));
 
@@ -29,7 +29,6 @@
       b = b - (a = +a) ? 1 / (b - a) : 0;
       return function(x) { return (x - a) * b; };
     }
-
 
     function d3_hsl_rgb(h, s, l) {
       var m1,
@@ -68,8 +67,15 @@
 
     var all = [];
     this.each(function() {
-      $(this).find("*").add(this).each(function() { all.push(this); });
+      $(this).find("*").add(this)/*.filter(function(d) {
+        d.childElementCount === 0 ||
+          Array.prototype.slice.call(this.childNodes).some(function(dd) {
+          return dd.nodeType === Node.TEXT_NODE;
+        });
+      })*/.each(function() { all.push(this); });
     });
+    console.log(all.length);
+
 
     $(all).addClass(function(i) {
       return classPrefix + i % period;
@@ -77,33 +83,3 @@
     console.log(+new Date() - a);
   };
 }(jQuery));
-//var parents = Array.prototype.slice.call(document.querySelectorAll(".hello"));
-//console.log(parents);
-
-//console.log(d3.selectAll(".hello *"));
-
-//var i = 0;
-
-//var period = 82;
-
-//d3.selectAll(".hello *")
-  //.attr("class", function(d) {
-    //return "f" + i++ % period;
-  //});
-
-//var h = d3.scale.linear()
-    //.domain([0, period])
-    //.range([0, 360]);
-
-//var style = d3.select("body").append("style");
-
-//var a = d3.range(i).map(function(d) {
-  //var c = d3.hsl(h(d), 1, 0.5);
-  //return ".f" + d % period + "::selection{" +
-    //"color: " + c + ";" +
-    //"background-color: white;" +
-    //"}";
-//});
-
-//style.text(a.join("\n"));
-
