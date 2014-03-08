@@ -17,6 +17,7 @@
     Array.apply(null, Array(period)).map(function (_, i) {return i;}).forEach(function(i) {
       styles.push("." + classPrefix + i + "::selection { background-color: transparent; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
       styles.push("." + classPrefix + i + "::-moz-selection { background-color: transparent; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+      styles.push("." + classPrefix + i + " { -webkit-tap-highlight-color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
     });
     style.html(styles.join("\n"));
 
@@ -71,7 +72,7 @@
         .find("*")
         .add(this)
         .filter(function(d) {
-          return d.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) || getComputedStyle(this).display === "block";
+          return d.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) || getComputedStyle(this).display !== "inline";
         })
         .each(function() { all.push(this); });
     });
