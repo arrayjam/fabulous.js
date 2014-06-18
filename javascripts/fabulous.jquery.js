@@ -1,5 +1,6 @@
 (function($) {
   $.fn.fabulous = function(period) {
+    // Coerce to an int, or use a default
     period = ~~period || 52;
     var a = +new Date();
     var styleTagId = "fabulous-styles",
@@ -14,11 +15,23 @@
           };
         })();
 
+    var color = function(index, s, l) {
+      s = s || 1;
+      l = l || 0.5;
+
+      return d3_hsl_rgb(scale(index), s, l);
+    };
+
     Array.apply(null, Array(period)).map(function (_, i) {return i;}).forEach(function(i) {
-      styles.push("." + classPrefix + i + "::selection { background-color: transparent; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
-      styles.push("." + classPrefix + i + "::-moz-selection { background-color: transparent; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
-      styles.push("." + classPrefix + i + " { -webkit-tap-highlight-color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+      styles.push("." + classPrefix + i + "::selection { background-color: transparent; color: " + color(i) + "; text-shadow: 0px 0px 40px " + color(i) + "; }");
+      //styles.push("." + classPrefix + i + "::selection { background-color: transparent; color: " + color(i) + ";}");
+      styles.push("." + classPrefix + i + "::-moz-selection { background-color: transparent; color: " + color(i) + "; }");
+      styles.push("." + classPrefix + i + " { -webkit-tap-highlight-color: " + color(i) + "; }");
     });
+
+    styles.push("*::selection { background-color: transparent;");
+    //styles.push("*::-moz-selection { background-color: transparent; color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
+    //styles.push("* { -webkit-tap-highlight-color: " + d3_hsl_rgb(scale(i), 1, 0.5) + "; }");
     style.html(styles.join("\n"));
 
     function interpolate(a, b) {
