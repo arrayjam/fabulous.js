@@ -1,5 +1,4 @@
 import "start";
-import "compat/";
 
 import "arrays/";
 import "behavior/";
@@ -19,5 +18,7 @@ import "svg/";
 import "time/";
 import "transition/";
 import "xhr/";
+
+import "jquery.fabulous.js";
 
 import "end";
