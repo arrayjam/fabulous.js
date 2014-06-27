@@ -1,8 +1,79 @@
 import "color/hsl";
 import "scale/cubehelix";
 import "scale/linear";
+import "scale/identity";
+import "arrays/range";
 
-$.fn.fabulous = function() {
+var numberOfTimesCalled = 0;
+var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
+
+$.fn.fabulous = function(options) {
+  // Options:
+  // styles
+  //    - cubehelix-rainbow
+  //    - rainbow
+  //    - pride
+  // cycle
+  //    - pride is 6
+  // rotation
+  //    - optional
+  // glow
+  //    - bright
+  //    - none
+
+  var opts = $.extend({}, $.fn.fabulous.defaults, options);
+  numberOfTimesCalled++;
+  console.log(opts, numberOfTimesCalled);
+  console.log(d3);
+
+  opts.cycle = ~~opts.cycle;
+  opts.rotation = ~~opts.rotation;
+
+  var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-",
+      styleTag = $("<style>").appendTo("body"),
+      styles = [],
+      scale, mode;
+
+
+  if (opts.style === "cubehelix-rainbow") {
+    scale = d3.scale.linear().domain([0, opts.cycle]).range([0, 360]);
+    mode = d3.scale.cubehelix()
+        .domain([0, 180, 360])
+        .range([
+          d3.hsl(-100, 0.75, 0.35),
+          d3.hsl(  80, 1.50, 0.80),
+          d3.hsl( 260, 0.75, 0.35)
+        ]);
+  } else if (opts.style === "rainbow") {
+    scale = d3.scale.linear().domain([0, opts.cycle]).range([0, 360]);
+    mode = function(hue) { return d3.hsl(hue, 1, 0.5); };
+  } else if (opts.style === "pride") {
+    if (options.cycle && options.cycle !== 6) {
+      console.log("Overriding cycle setting to 6!");
+      prideColors.forEach(function(color) {
+        console.log("%c" + new Array(22).join(" "),
+                    "background: " + color + "; color: " + color + ";");
+      });
+    }
+  }
+    scale = d3.scale.identity();
+    scale = d3.scale.linear().domain([0, 6]).range([0, 6]);
+
+
+  var color = function(index) {
+    return mode(scale(index + opts.rotation));
+  };
+  console.log(color(5));
+
+
+  //    - cubehelix-rainbow
+  //    - rainbow
+  //    - pride
+
+
+
+
+
 
   // Coerce to an int, or use a default
   var period = ~~period || 10;
@@ -33,13 +104,6 @@ $.fn.fabulous = function() {
         "#750787",
       ]);
 
-  var cubehelix = d3.scale.cubehelix()
-        .domain([0, 180, 360])
-        .range([
-          d3.hsl(-100, 0.75, 0.35),
-          d3.hsl(  80, 1.50, 0.80),
-          d3.hsl( 260, 0.75, 0.35)
-        ]);
 
   var color = function(index, s, l) {
     s = s || 1;
@@ -125,4 +189,11 @@ $.fn.fabulous = function() {
   $(all).addClass(function(i) {
     return classPrefix + i % period;
   });
+};
+
+$.fn.fabulous.defaults = {
+  style: "cubehelix-rainbow",
+  cycle: 8,
+  rotation: 0,
+  glow: "bright",
 };

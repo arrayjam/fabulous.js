@@ -1,4 +1,5 @@
 !function($) {
+  var d3 = {};
   function d3_Color() {}
   d3_Color.prototype.toString = function() {
     return this.rgb() + "";
@@ -1487,7 +1488,62 @@
     var p = d3_scale_linearPrecision(range[2]);
     return type in d3_scale_linearFormatSignificant ? Math.abs(p - d3_scale_linearPrecision(Math.max(abs(range[0]), abs(range[1])))) + +(type !== "e") : p - (type === "%") * 2;
   }
-  $.fn.fabulous = function() {
+  d3.scale.identity = function() {
+    return d3_scale_identity([ 0, 1 ]);
+  };
+  function d3_scale_identity(domain) {
+    function identity(x) {
+      return +x;
+    }
+    identity.invert = identity;
+    identity.domain = identity.range = function(x) {
+      if (!arguments.length) return domain;
+      domain = x.map(identity);
+      return identity;
+    };
+    identity.ticks = function(m) {
+      return d3_scale_linearTicks(domain, m);
+    };
+    identity.tickFormat = function(m, format) {
+      return d3_scale_linearTickFormat(domain, m, format);
+    };
+    identity.copy = function() {
+      return d3_scale_identity(domain);
+    };
+    return identity;
+  }
+  var numberOfTimesCalled = 0;
+  var prideColors = [ "#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787" ];
+  $.fn.fabulous = function(options) {
+    var opts = $.extend({}, $.fn.fabulous.defaults, options);
+    numberOfTimesCalled++;
+    console.log(opts, numberOfTimesCalled);
+    console.log(d3);
+    opts.cycle = ~~opts.cycle;
+    opts.rotation = ~~opts.rotation;
+    var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").appendTo("body"), styles = [], scale, mode;
+    if (opts.style === "cubehelix-rainbow") {
+      scale = d3.scale.linear().domain([ 0, opts.cycle ]).range([ 0, 360 ]);
+      mode = d3.scale.cubehelix().domain([ 0, 180, 360 ]).range([ d3.hsl(-100, .75, .35), d3.hsl(80, 1.5, .8), d3.hsl(260, .75, .35) ]);
+    } else if (opts.style === "rainbow") {
+      scale = d3.scale.linear().domain([ 0, opts.cycle ]).range([ 0, 360 ]);
+      mode = function(hue) {
+        return d3.hsl(hue, 1, .5);
+      };
+    } else if (opts.style === "pride") {
+      if (options.cycle && options.cycle !== 6) {
+        console.log("Overriding cycle setting to 6!");
+        prideColors.forEach(function(color) {
+          console.log("%c" + new Array(22).join(" "), "background: " + color + "; color: " + color + ";");
+        });
+      }
+    }
+    scale = d3.scale.identity();
+    scale = d3.scale.linear().domain([ 0, 6 ]).range([ 0, 6 ]);
+    var color = function(index) {
+      return mode(scale(index + opts.rotation));
+    };
+    console.log(color(5));
     var period = ~~period || 10;
     period = 6;
     var a = +new Date();
@@ -1501,7 +1557,6 @@
       return d3.hcl(scale(index), 100, 55);
     };
     var lgbt = d3.scale.linear().domain(d3.range(6)).range([ "#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787" ]);
-    var cubehelix = d3.scale.cubehelix().domain([ 0, 180, 360 ]).range([ d3.hsl(-100, .75, .35), d3.hsl(80, 1.5, .8), d3.hsl(260, .75, .35) ]);
     var color = function(index, s, l) {
       s = s || 1;
       l = l || .5;
@@ -1566,5 +1621,11 @@
     $(all).addClass(function(i) {
       return classPrefix + i % period;
     });
+  };
+  $.fn.fabulous.defaults = {
+    style: "cubehelix-rainbow",
+    cycle: 8,
+    rotation: 0,
+    glow: "bright"
   };
 }(jQuery);
