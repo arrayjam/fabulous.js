@@ -1532,14 +1532,14 @@
       };
     } else if (opts.style === "pride") {
       if (options.cycle && options.cycle !== 6) {
-        console.log("Overriding cycle setting to 6!");
+        console.log("Using the Pride style. Overriding cycle setting to 6!");
         prideColors.forEach(function(color) {
           console.log("%c" + new Array(22).join(" "), "background: " + color + "; color: " + color + ";");
         });
       }
+      scale = d3.scale.identity();
+      mode = d3.scale.linear().domain(d3.range(6)).range(prideColors);
     }
-    scale = d3.scale.identity();
-    scale = d3.scale.linear().domain([ 0, 6 ]).range([ 0, 6 ]);
     var color = function(index) {
       return mode(scale(index + opts.rotation));
     };
