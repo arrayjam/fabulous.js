@@ -1517,8 +1517,6 @@
   $.fn.fabulous = function(options) {
     var opts = $.extend({}, $.fn.fabulous.defaults, options);
     numberOfTimesCalled++;
-    console.log(opts, numberOfTimesCalled);
-    console.log(d3);
     opts.cycle = ~~opts.cycle;
     opts.rotation = ~~opts.rotation;
     var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").appendTo("body"), styles = [], scale, mode;
@@ -1579,7 +1577,7 @@
       $(this).find("*").add(this).filter(function(d) {
         return d.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) {
           return dd.nodeType === Node.TEXT_NODE;
-        }) || getComputedStyle(this).display !== "inline";
+        });
       }).each(function() {
         all.push(this);
       });

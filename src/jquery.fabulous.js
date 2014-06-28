@@ -8,24 +8,13 @@ var numberOfTimesCalled = 0;
 var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
 
 $.fn.fabulous = function(options) {
-  // Options:
   // styles
   //    - cubehelix-rainbow
   //    - rainbow
   //    - pride
-  // cycle
-  //    - pride is 6
-  // rotation
-  //    - optional
-  // glow
-  //    - boolean
-  // preview
-  //    - boolean
 
   var opts = $.extend({}, $.fn.fabulous.defaults, options);
   numberOfTimesCalled++;
-  console.log(opts, numberOfTimesCalled);
-  console.log(d3);
 
   opts.cycle = ~~opts.cycle;
   opts.rotation = ~~opts.rotation;
@@ -91,6 +80,8 @@ $.fn.fabulous = function(options) {
     return "." + className + "::-moz-selection { " + rules.join("; ") + " }";
   }
 
+  // This works nicely in Chrome, Safari and Firebug.
+  // Doesn't work for Firefox yet but I'd rather not add browser detection code here.
   if (opts.preview) {
     console.log("Fabulous.js preview:");
     consoleStripe(d3.range(opts.cycle).map(colorByIndex));
@@ -122,13 +113,15 @@ $.fn.fabulous = function(options) {
       .add(this) // And the child element
       .filter(function(d) { // Only take
         return d.childElementCount === 0 || // The leaf elements
-          Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) || // The text nodes
-          getComputedStyle(this).display !== "inline"; // And the block-level elements
+          Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }); // The text nodes
+          // Check if this is necessary
+          // getComputedStyle(this).display !== "inline"; // And the block-level elements
       })
       .each(function() { all.push(this); });
   });
 
   $(all).addClass(function(i) {
+    // Apply a rotation to the index if specified
     return classPrefix + ((i + opts.rotation) % opts.cycle);
   });
 };
