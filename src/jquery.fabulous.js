@@ -118,9 +118,8 @@ $.fn.fabulous = function(options) {
       .add(this) // And the child element
       .filter(function(d) { // Only take
         return d.childElementCount === 0 || // The leaf elements
-          Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }); // The text nodes
-          // Check if this is necessary
-          // getComputedStyle(this).display !== "inline"; // And the block-level elements
+          Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) || // The text nodes
+          getComputedStyle(this).display !== "inline"; // And the block-level elements
       })
       .each(function() { all.push(this); });
   });

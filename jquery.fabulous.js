@@ -1582,7 +1582,7 @@
       $(this).find("*").add(this).filter(function(d) {
         return d.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) {
           return dd.nodeType === Node.TEXT_NODE;
-        });
+        }) || getComputedStyle(this).display !== "inline";
       }).each(function() {
         all.push(this);
       });
