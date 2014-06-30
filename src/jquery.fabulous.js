@@ -51,13 +51,18 @@ $.fn.fabulous = function(options) {
   };
 
   function consoleStripe (colors) {
-    colors.forEach(function(color) {
+    rotateArray(colors, opts.rotation).forEach(function(color) {
       console.log("%c" + new Array(22).join(" "),
                    "background: " + color + "; color: " + color + ";");
     });
   }
 
-  function textColor (color) {
+  function rotateArray (array, rotation) {
+    array.unshift.apply(array, array.splice(rotation, array.length));
+    return array;
+  }
+
+  function textColorRules (color) {
     return [
       "background-color: transparent",
       "color: " + color
@@ -65,7 +70,7 @@ $.fn.fabulous = function(options) {
   }
 
   function selectionStyleWebKit (className, color, glow) {
-    var rules = textColor(color);
+    var rules = textColorRules(color);
 
     // WebKit browsers display a nice glow, so we give it 40px
     if (glow) rules.push("text-shadow: 0 0 40px " + color);
@@ -73,7 +78,7 @@ $.fn.fabulous = function(options) {
   }
 
   function selectionStyleMoz (className, color, glow) {
-    var rules = textColor(color);
+    var rules = textColorRules(color);
 
     // Firefox's text-shadow doesn't extend past the line-height, so give it only a bit
     if (glow) rules.push("text-shadow: 0 0 5px " + color);
@@ -84,6 +89,7 @@ $.fn.fabulous = function(options) {
   // Doesn't work for Firefox yet but I'd rather not add browser detection code here.
   if (opts.preview) {
     console.log("Fabulous.js preview:");
+    console.log("Style:", opts.style, "Cycle:", opts.cycle, "Rotation:", opts.rotation);
     consoleStripe(d3.range(opts.cycle).map(colorByIndex));
   }
 
@@ -106,7 +112,6 @@ $.fn.fabulous = function(options) {
 
   // For each wrapped element given to this plugin
   this.each(function() {
-
     // Wrap each child
     $(this)
       .find("*") // Get all descending elements
@@ -120,9 +125,9 @@ $.fn.fabulous = function(options) {
       .each(function() { all.push(this); });
   });
 
-  $(all).addClass(function(i) {
+  $(all).addClass(function(index) {
     // Apply a rotation to the index if specified
-    return classPrefix + ((i + opts.rotation) % opts.cycle);
+    return classPrefix + ((index + opts.rotation) % opts.cycle);
   });
 };
 

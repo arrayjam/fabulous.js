@@ -1541,25 +1541,30 @@
       return mode(scale(index));
     };
     function consoleStripe(colors) {
-      colors.forEach(function(color) {
+      rotateArray(colors, opts.rotation).forEach(function(color) {
         console.log("%c" + new Array(22).join(" "), "background: " + color + "; color: " + color + ";");
       });
     }
-    function textColor(color) {
+    function rotateArray(array, rotation) {
+      array.unshift.apply(array, array.splice(rotation, array.length));
+      return array;
+    }
+    function textColorRules(color) {
       return [ "background-color: transparent", "color: " + color ];
     }
     function selectionStyleWebKit(className, color, glow) {
-      var rules = textColor(color);
+      var rules = textColorRules(color);
       if (glow) rules.push("text-shadow: 0 0 40px " + color);
       return "." + className + "::selection { " + rules.join("; ") + " }";
     }
     function selectionStyleMoz(className, color, glow) {
-      var rules = textColor(color);
+      var rules = textColorRules(color);
       if (glow) rules.push("text-shadow: 0 0 5px " + color);
       return "." + className + "::-moz-selection { " + rules.join("; ") + " }";
     }
     if (opts.preview) {
       console.log("Fabulous.js preview:");
+      console.log("Style:", opts.style, "Cycle:", opts.cycle, "Rotation:", opts.rotation);
       consoleStripe(d3.range(opts.cycle).map(colorByIndex));
     }
     d3.range(opts.cycle).forEach(function(index) {
@@ -1582,8 +1587,8 @@
         all.push(this);
       });
     });
-    $(all).addClass(function(i) {
-      return classPrefix + (i + opts.rotation) % opts.cycle;
+    $(all).addClass(function(index) {
+      return classPrefix + (index + opts.rotation) % opts.cycle;
     });
   };
   $.fn.fabulous.defaults = {
