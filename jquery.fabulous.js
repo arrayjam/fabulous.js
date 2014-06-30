@@ -1573,8 +1573,8 @@
       styles.push(selectionStyleMoz(className, indexColor, opts.glow));
     });
     if (opts.disableOtherSelectionStyles) {
-      styles.push("*::selection { background-color: transparent; }");
-      styles.push("*::-moz-selection { background-color: transparent; }");
+      styles.push("::selection { background-color: transparent; }");
+      styles.push("::-moz-selection { background-color: transparent; }");
     }
     styleTag.html(styles.join("\n"));
     var all = [];

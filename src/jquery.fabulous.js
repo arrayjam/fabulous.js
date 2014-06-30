@@ -102,8 +102,8 @@ $.fn.fabulous = function(options) {
   });
 
   if (opts.disableOtherSelectionStyles) {
-    styles.push("*::selection { background-color: transparent; }");
-    styles.push("*::-moz-selection { background-color: transparent; }");
+    styles.push("::selection { background-color: transparent; }");
+    styles.push("::-moz-selection { background-color: transparent; }");
   }
 
   styleTag.html(styles.join("\n"));
@@ -128,6 +128,8 @@ $.fn.fabulous = function(options) {
     // Apply a rotation to the index if specified
     return classPrefix + ((index + opts.rotation) % opts.cycle);
   });
+
+  return $(this);
 };
 
 $.fn.fabulous.defaults = {
