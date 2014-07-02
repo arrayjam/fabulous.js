@@ -1542,7 +1542,7 @@
     };
     function consoleStripe(colors) {
       rotateArray(colors, opts.rotation).forEach(function(color) {
-        console.log("%c" + new Array(22).join(" "), "background: " + color + "; color: " + color + ";");
+        console.log("%c       " + color + "       ", "background: " + color + "; color: " + color + ";");
       });
     }
     function rotateArray(array, rotation) {
@@ -1590,6 +1590,7 @@
     $(all).addClass(function(index) {
       return classPrefix + (index + opts.rotation) % opts.cycle;
     });
+    return $(this);
   };
   $.fn.fabulous.defaults = {
     style: "cubehelix-rainbow",

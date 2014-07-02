@@ -52,7 +52,7 @@ $.fn.fabulous = function(options) {
 
   function consoleStripe (colors) {
     rotateArray(colors, opts.rotation).forEach(function(color) {
-      console.log("%c" + new Array(22).join(" "),
+      console.log("%c       " + color + "       ",
                    "background: " + color + "; color: " + color + ";");
     });
   }
