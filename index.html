@@ -2,7 +2,154 @@
 <head>
   <title>Fabulous.js</title>
   <link rel="shortcut icon" href="/favicon.ico?v=3" type="image/x-icon" />
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <style>
+    body {
+      color: #ddd;
+    }
+  </style>
 </head>
-<body>
-  woop
-</body>
+<body style="background: #222;">
+  <div class="container">
+    <h1 style="color: #eee; text-align: center; font-size: 40px;">Fabulous.js</h1>
+
+    <section class="introduction">
+      <p>
+        Lots and lots and lots of people select text while reading it on the web.
+        You're probably doing it right now. But a blue background color is just
+        too boring for the modern web experience. Your readers want novelties.
+        They want pretty things. Do they want rainbows? Let's assume they do.
+        This is where Fabulous.js comes in.
+
+        <div class="lights" style="text-align: center; padding: 30px 0;">
+          <button class="btn" style="background-color: #8700C7; font-size: 20px;">Light it up!</button>
+        </div>
+      </p>
+    </section>
+
+    <section>
+      <h2>What?</h2>
+
+      <ul>
+        <li>
+          Fabulous.js turns selected text into a rainbow.
+        </li>
+        <li>
+          It is a jquery plugin.
+        </li>
+        <li>
+          Yes, it is silly.
+        </li>
+        <li>
+          No, you probably shouldn't use it.
+        </li>
+        <li>
+          It only really works well on websites with darker backgrounds.
+        </li>
+        <li>
+          It can make your content feel&hellip; what's the word I'm looking for&hellip; fantastic? Terrific? Astonishing? It's right on the tip of my toungue&hellip;
+        </li>
+      </ul>
+
+      <h2>Take Heed</h2>
+      <p>
+        Text selection behaviour in browsers is a non-standard feature. It has
+        been removed from the CSS3 specification and is unlikely to be a part of
+        CSS4. Despite that, it works in all major browsers except IE 7/8.
+      </p>
+
+      <p>
+        By default, Fabulous.js is very naughty and disables the selection <em>styles</em> of all elements not
+        rainbowed by Fabulous.js&mdash;The text is still selected, but there is no visual feedback&mdash;which could massively annoy some of your users.
+        Pass false to the <code>DisableOtherSelectionStyles</code> option to turn off this
+        behaviour.
+      </p>
+    </section>
+
+    <section class="usage">
+      <h2>Getting Started</h2>
+
+      <p>
+        Fabulous.js is a jQuery plugin, so make sure you include jQuery in your page before the <code>jquery.fabulous.js</code> file.
+      </p>
+
+      <p>
+        If the main content of your page is wrapped in <code>&lt;section&gt;</code> tags:
+        <pre>$("section").fabulous()</pre>
+
+        If you want <em>all</em> elements highlighted in color:
+        <pre>$("body").fabulous()</pre>
+
+        The plugin may be called multiple times on the same page with different
+        selections, as demonstrated below.
+      </p>
+
+      <h2>Usage</h2>
+      <h3>Styles</h3>
+
+      Fabulous.js currently has three different styles.
+
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li><a href="#">cubehelix-rainbow</a></li>
+        <li><a href="#">rainbow</a></li>
+        <li><a href="#">pride</a></li>
+      </ul>
+      "rainbow": A standard cycling of hues. Very pretty, but the yellows
+      are harder to read.
+
+      <!--"cubehelix-rainbow": The "Less-Angry Rainbow" color scale by Mike Bostock,-->
+      <!--inpired by Matteo Niccoli's perceptual rainbow.-->
+
+      <!--"pride": The LGBT movement flag. This forces the cycle option to 6, to-->
+      <!--maintain the correct colors.-->
+
+    </section>
+
+
+
+      <!--### Styles-->
+
+
+      <!--### Cycle-->
+
+      <!--The wavelength of the rainbow, as measured in the number of elements. Use-->
+      <!--a bigger number (~100) to have a smooth color transition, and a smaller-->
+      <!--number to cycle through a few colors quickly.-->
+
+      <!--Default, 20, 100-->
+
+      <!--### Rotation-->
+
+      <!--Rotate the rainbow by a given amount.-->
+
+      <!--Default: 0, 5, 10-->
+
+      <!--### Glow-->
+
+      <!--Adds a glow to the highlighted text. WebKit browsers allow selection-->
+      <!--text-shadow to extend beyond the bounds of the text, so the glow amount is-->
+      <!--quite large. Firefox doesn't, so the glow amount is quite small.-->
+
+      <!--Default: true, false-->
+
+      <!--### DisableOtherSelectionStyles-->
+
+      <!--Adds a blanket rule to all non-Fabulous'd elements that disables selection-->
+      <!--highlight. It doesn't actually disable selection, but only makes it look-->
+      <!--that way.-->
+
+      <!--Default: true, false-->
+
+      <!--## lettering.js-->
+
+      <!--Lettering.js lets you split up text into many smaller elements. If you-->
+      <!--want a sweet-as title like at the top of this page, include-->
+      <!--jquery.lettering.js in your application, and call lettering() and then-->
+      <!--fabulous() on your jquery selection.-->
+
+      <!--$("h1").lettering().fabulous()-->
+
+
+
+    </div>
+  </body>
