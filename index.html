@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
   <title>Fabulous.js</title>
+  <meta charset="utf-8">
   <link rel="shortcut icon" href="/favicon.ico?v=3" type="image/x-icon" />
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <style>
@@ -28,11 +29,11 @@
         too boring for the modern web experience. Your readers want novelties.
         They want pretty things. Do they want rainbows? Let's assume they do.
         This is where Fabulous.js comes in.
-
-        <div class="lights" style="text-align: center; padding: 30px 0;">
-          <button class="btn" style="background-color: #8700C7; font-size: 20px;">Light it up!</button>
-        </div>
       </p>
+
+      <div class="lights" style="text-align: center; padding: 30px 0;">
+        <button class="btn" style="background-color: #8700C7; font-size: 20px;">Light it up!</button>
+      </div>
     </section>
 
     <section>
@@ -83,11 +84,15 @@
 
       <p>
         Example: If the main content of your page is wrapped in <code>&lt;section&gt;</code> tags:
-        <pre>$("section").fabulous()</pre>
+      </p>
+      <pre>$("section").fabulous()</pre>
 
+      <p>
         If you want <em>all</em> elements highlighted in color:
-        <pre>$("body").fabulous()</pre>
+      </p>
+      <pre>$("body").fabulous()</pre>
 
+      <p>
         The plugin may be called multiple times on the same page with different
         selections, as demonstrated below.
       </p>
@@ -96,7 +101,7 @@
       <code>$(selection).fabulous(options)</code>
       <p>Options are passed to Fabulous.js through an object literal.</p>
 
-      <h3><a name="style" href="#style">#</a> style (String)</h3>
+      <h3><a id="style" href="#style">#</a> style (String)</h3>
       <ul>
         <li>"cubehelix-rainbow" (Default): The "Less-Angry Rainbow" color scale by Mike Bostock, inpired by Matteo Niccoli's perceptual rainbow.</li>
         <li>"rainbow": A standard cycling of hues. Very pretty, but the yellows are harder to read.</li>
@@ -109,7 +114,7 @@
         <li><a href="#">pride</a></li>
       </ul>
 
-      <h3><a name="cycle" href="#cycle">#</a> cycle (Number)</h3>
+      <h3><a id="cycle" href="#cycle">#</a> cycle (Number)</h3>
       <p>
         The wavelength of the rainbow, as measured in the number of elements. Use
         a bigger number (~100) to have a smooth color transition, and a smaller
@@ -122,7 +127,7 @@
         <li><a href="#">100</a></li>
       </ul>
 
-      <h3><a name="rotation" href="#rotation">#</a> rotation (Number)</h3>
+      <h3><a id="rotation" href="#rotation">#</a> rotation (Number)</h3>
       <p>
         Rotate the rainbow by a given amount.
       </p>
@@ -133,7 +138,7 @@
         <li><a href="#">10</a></li>
       </ul>
 
-      <h3><a name="glow" href="#glow">#</a> glow (Boolean)</h3>
+      <h3><a id="glow" href="#glow">#</a> glow (Boolean)</h3>
       <p>
         Adds a glow to the highlighted text. WebKit browsers allow selection
         text-shadow to extend beyond the bounds of the text, so the glow amount is
@@ -145,7 +150,7 @@
         <li><a href="#">false</a></li>
       </ul>
 
-      <h3><a name="disableOtherSelectionStyles" href="#disableOtherSelectionStyles">#</a> disableOtherSelectionStyles (Boolean)</h3>
+      <h3><a id="disableOtherSelectionStyles" href="#disableOtherSelectionStyles">#</a> disableOtherSelectionStyles (Boolean)</h3>
       <p>
         Adds a blanket rule to all non-Fabulous'd elements that disables selection
         highlight. It doesn't actually disable selection, but only makes it look
@@ -168,5 +173,15 @@
 
       <pre>$("h1").lettering().fabulous()</pre>
     </section>
+
+    <footer>
+      A thing by Yuri Feldman <a href="https://twitter.com/arrayjam">@arrayjam</a>
+    </footer>
   </div>
+  <script src="jquery.js"></script>
+  <script src="jquery.fabulous.min.js"></script>
+  <script type="text/javascript">
+    $("body").fabulous();
+    window.getSelection().selectAllChildren(document);
+  </script>
 </body>
