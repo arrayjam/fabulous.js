@@ -1578,9 +1578,12 @@
     }
     styleTag.html(styles.join("\n"));
     var all = [];
+    var dont = opts.remove.find("*").add(opts.remove);
     this.each(function() {
-      $(this).find("*").add(this).filter(function(d) {
-        return d.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) {
+      $(this).find("*").add(this).filter(function() {
+        return !$(this).is(dont);
+      }).filter(function() {
+        return this.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) {
           return dd.nodeType === Node.TEXT_NODE;
         }) || getComputedStyle(this).display !== "inline";
       }).each(function() {
@@ -1598,6 +1601,7 @@
     rotation: 0,
     glow: true,
     disableOtherSelectionStyles: true,
-    preview: false
+    preview: false,
+    remove: $()
   };
 }(jQuery);

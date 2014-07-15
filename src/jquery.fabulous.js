@@ -109,6 +109,7 @@ $.fn.fabulous = function(options) {
   styleTag.html(styles.join("\n"));
 
   var all = [];
+  var dontHighlight = opts.remove.find("*").add(opts.remove);
 
   // For each wrapped element given to this plugin
   this.each(function() {
@@ -116,8 +117,11 @@ $.fn.fabulous = function(options) {
     $(this)
       .find("*") // Get all descending elements
       .add(this) // And the child element
-      .filter(function(d) { // Only take
-        return d.childElementCount === 0 || // The leaf elements
+      .filter(function() { // Filter out our remove elements
+        return !$(this).is(dontHighlight);
+      })
+      .filter(function() { // Only take
+        return this.childElementCount === 0 || // The leaf elements
           Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) || // The text nodes
           getComputedStyle(this).display !== "inline"; // And the block-level elements
       })
@@ -139,4 +143,5 @@ $.fn.fabulous.defaults = {
   glow: true,
   disableOtherSelectionStyles: true,
   preview: false,
+  remove: $(),
 };
