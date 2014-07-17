@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <link rel="shortcut icon" href="/favicon.ico?v=3" type="image/x-icon" />
   <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700|Ubuntu:300,400,500|Raleway:400,900,800,700,600,500' rel='stylesheet' type='text/css'>
   <style>
     body {
       color: #ddd;
@@ -22,12 +23,35 @@
       padding: 5px 0;
     }
 
+    h1, h2, h3, h4 {
+      font-family: 'Raleway', sans-serif;
+    }
+
+    body {
+      font-family: 'Ubuntu', sans-serif;
+    }
+
+    pre, code {
+      font-family: 'Ubuntu Mono', monospace;
+      background-color: #223;
+      border-color: #226;
+      color: #eee;
+    }
+
+    code {
+      background-color: #336;
+    }
+
   </style>
 </head>
 <body style="background: #222;">
-  <div class="container">
-    <h1 style="color: #eee; text-align: center; font-size: 40px;"><split>Fabulous.js</split></h1>
+  <section style="background-color: #333; margin-bottom: 20px;">
+    <div class="container">
+      <h1 style="color: #eee; text-align: center; font-size: 40px; padding: 60px 0;"><split>Fabulous.js</split></h1>
+    </div>
+  </section>
 
+  <div class="container">
     <section class="introduction">
       <p>
         Lots and lots and lots of people select text while reading it on the web.
@@ -36,8 +60,6 @@
         They want pretty things. Do they want <split>rainbows</split>? Let's assume they do.
         This is where Fabulous.js comes in.
       </p>
-
-      <p class="example">EXAMPLE HERE</p>
 
       <div class="lights" style="text-align: center; padding: 30px 0;">
         <button class="btn" style="background-color: #8700C7; font-size: 20px;">Light it up!</button>
@@ -170,6 +192,10 @@
         <li><a href="#">false</a></li>
       </ul>
 
+      <h3><a id="remove" href="#remove">#</a> remove (jQuery selection)</h3>
+      <p>Doesn't apply fabulous.js to the passed selection or its children.</p>
+      <p>In this documentation, it's used to separate the main <split>rainbow</split> from the documentation examples.</p>
+
       <h2>Lettering.js</h2>
 
       <p>
@@ -191,7 +217,7 @@
   <script src="jquery.lettering.js"></script>
   <script type="text/javascript">
     $("split").lettering();
-    $("body").fabulous({remove: $(".example"));
+    $("body").fabulous({remove: $(".example")});
     window.getSelection().selectAllChildren(document);
   </script>
 </body>
