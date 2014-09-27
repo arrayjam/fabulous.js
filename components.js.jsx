@@ -4,41 +4,48 @@
 // Allow editing of code example and evaluate
 
 var OptionsExample = React.createClass({
+  getInitialState: function() {
+    return { optionsHash: "" };
+  },
+
+  handleOptionSelect: function(optionsHash) {
+    this.setState({optionsHash: optionsHash});
+  },
+
   render: function() {
     var options = this.props.options.map(function(option) {
       return (
-        <li>{option.name}</li>
+        <Option optionName={option.name} optionHash={option.code} onOptionSelect={this.handleOptionSelect} />
       );
     }.bind(this));
     return (
-      <div className="clearfix">
-        <ul style={{"float": "left"}}>
+      <div>
+        {this.state.optionsHash}
+        <ul>
           {options}
         </ul>
-        <div style={{"float": "right", "overflow": "scroll"}}>
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-          THINGS<br />
-        </div>
       </div>
     );
   }
 });
 
+var Option = React.createClass({
+  handleClick: function(option) {
+    this.props.onOptionSelect(this.props.optionHash);
+  },
+
+  render: function() {
+    return (
+      <li onClick={this.handleClick}>{this.props.optionName}</li>
+    );
+  }
+});
+
 var styleOptions = [
-  { name: "cubehelix-rainbow", code: "{style: \"cubehelix-rainbow\"}" },
-  { name: "rainbow", code: "{style: \"rainbow\"}" },
-  { name: "pride", code: "{style: \"pride\"}" }
+  { name: "cubehelix-rainbow", code: "{ style: \"cubehelix-rainbow\" }" },
+  { name: "hcl-rainbow", code: "{ style: \"hcl-rainbow\" }" },
+  { name: "rainbow", code: "{ style: \"rainbow\" }" },
+  { name: "pride", code: "{ style: \"pride\" }" }
 ];
 
 React.renderComponent(
