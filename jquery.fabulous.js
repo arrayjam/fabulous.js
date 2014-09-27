@@ -1519,7 +1519,7 @@
     numberOfTimesCalled++;
     opts.cycle = ~~opts.cycle;
     opts.rotation = ~~opts.rotation;
-    var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").appendTo("body"), styles = [], scale, mode;
+    var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").appendTo(opts.styleTagContainer), styles = [], scale, mode;
     if (opts.style === "cubehelix-rainbow") {
       scale = d3.scale.linear().domain([ 0, opts.cycle ]).range([ 0, 360 ]);
       mode = d3.scale.cubehelix().domain([ 0, 180, 360 ]).range([ d3.hsl(-100, .75, .35), d3.hsl(80, 1.5, .8), d3.hsl(260, .75, .35) ]);
@@ -1607,6 +1607,7 @@
     glow: true,
     disableOtherSelectionStyles: true,
     preview: false,
-    remove: $()
+    remove: $(),
+    styleTagContainer: $("body")
   };
 }(jQuery);
