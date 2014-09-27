@@ -20,7 +20,7 @@ $.fn.fabulous = function(options) {
   opts.rotation = ~~opts.rotation;
 
   var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-",
-      styleTag = $("<style>").appendTo(opts.styleTagContainer),
+      styleTag = $("<style>").addClass(opts.styleTagClass).appendTo("body"),
       styles = [],
       scale, mode;
 
@@ -147,5 +147,5 @@ $.fn.fabulous.defaults = {
   disableOtherSelectionStyles: true,
   preview: false,
   remove: $(),
-  styleTagContainer: $("body"),
+  styleTagClass: ""
 };
