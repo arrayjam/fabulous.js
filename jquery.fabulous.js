@@ -1514,12 +1514,12 @@
   }
   var numberOfTimesCalled = 0;
   var prideColors = [ "#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787" ];
-  $.fn.fabulous = function(options) {
-    var opts = $.extend({}, $.fn.fabulous.defaults, options);
+  $.fn.fabulous = function(calledOptions) {
+    var opts = $.extend({}, $.fn.fabulous.defaults, calledOptions);
     numberOfTimesCalled++;
     opts.cycle = ~~opts.cycle;
     opts.rotation = ~~opts.rotation;
-    var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").appendTo("body"), styles = [], scale, mode;
+    var classPrefix = "fabulous-selection-" + numberOfTimesCalled + "-", styleTag = $("<style>").addClass(opts.styleTagClass).appendTo("body"), styles = [], scale, mode;
     if (opts.style === "cubehelix-rainbow") {
       scale = d3.scale.linear().domain([ 0, opts.cycle ]).range([ 0, 360 ]);
       mode = d3.scale.cubehelix().domain([ 0, 180, 360 ]).range([ d3.hsl(-100, .75, .35), d3.hsl(80, 1.5, .8), d3.hsl(260, .75, .35) ]);
@@ -1534,7 +1534,7 @@
         return d3.hcl(hue, 100, 75);
       };
     } else if (opts.style === "pride") {
-      if (options.cycle && options.cycle !== 6) {
+      if (opts.cycle && opts.cycle !== 6) {
         console.log("Using the Pride style. Overriding cycle setting to 6.");
         consoleStripe(prideColors);
         opts.cycle = 6;
@@ -1606,7 +1606,8 @@
     rotation: 0,
     glow: true,
     disableOtherSelectionStyles: true,
-    preview: false,
-    remove: $()
+    preview: true,
+    remove: $(),
+    styleTagClass: ""
   };
 }(jQuery);

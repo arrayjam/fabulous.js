@@ -7,12 +7,29 @@ var OptionsExample = React.createClass({
   },
 
   handleCodeChange: function(optionsHash) {
-    this.setState({optionsHash: optionsHash});
-    this.evaluate();
+    console.log("handleCodeChange", optionsHash);
+    this.setState({optionsHash: optionsHash}, this.evaluate);
+  },
+
+  createdStyleClass: function() {
+    return "fabulous-documentation-" + this.props.documentation.name;
+  },
+
+  resultSelector: function() {
+    return "#" + this.props.documentation.name;
   },
 
   evaluate: function() {
-    console.log("EVAL", arguments);
+    var selector = this.resultSelector(),
+        styleTagClass = this.createdStyleClass(),
+        hash = this.state.optionsHash + ", styleTagClass: \"" + styleTagClass + "\"",
+        evalString = "$('" + selector + "').fabulous({" + hash + "})";
+
+    console.log($("." + styleTagClass));
+    $("." + styleTagClass).remove();
+
+    console.log("EVAL", evalString);
+    this.setState({ evalString: evalString});
   },
 
   render: function() {
@@ -23,11 +40,26 @@ var OptionsExample = React.createClass({
     }.bind(this));
     return (
       <div>
-        <OptionsExampleEvaluator selector={"#" + this.props.documentation.name} optionsHash={this.state.optionsHash} onCodeChange={this.handleCodeChange} />
+        <OptionsExampleEvaluator selector={this.resultSelector()} optionsHash={this.state.optionsHash} onCodeChange={this.handleCodeChange} />
         <ul>
           {options}
         </ul>
-        <div id={this.props.documentation.name}>#{this.props.documentation.name}</div>
+        <OptionsExampleResult id={this.props.documentation.name} evalString={this.state.evalString} />
+      </div>
+    );
+  }
+});
+
+var OptionsExampleResult = React.createClass({
+  componentDidUpdate: function() {
+    eval(this.props.evalString);
+    window.getSelection().selectAllChildren(this.refs.result.getDOMNode());
+  },
+
+  render: function() {
+    return (
+      <div key={+new Date} id={this.props.id} ref="result">
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
       </div>
     );
   }
@@ -43,11 +75,11 @@ var OptionsExampleEvaluator = React.createClass({
   handleInput: function(event) {
     this.props.onCodeChange(event.target.innerHTML);
   }
-
 });
 
 var OptionsExampleOption = React.createClass({
   handleClick: function() {
+    console.log("handleClick", this.props.optionHash);
     this.props.onOptionSelect(this.props.optionHash);
   },
 
