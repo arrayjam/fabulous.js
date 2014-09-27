@@ -1528,6 +1528,11 @@
       mode = function(hue) {
         return d3.hsl(hue, 1, .5);
       };
+    } else if (opts.style === "hcl-rainbow") {
+      scale = d3.scale.linear().domain([ 0, opts.cycle ]).range([ 0, 360 ]);
+      mode = function(hue) {
+        return d3.hcl(hue, 100, 75);
+      };
     } else if (opts.style === "pride") {
       if (options.cycle && options.cycle !== 6) {
         console.log("Using the Pride style. Overriding cycle setting to 6.");
@@ -1578,10 +1583,10 @@
     }
     styleTag.html(styles.join("\n"));
     var all = [];
-    var dont = opts.remove.find("*").add(opts.remove);
+    var dontHighlight = opts.remove.find("*").add(opts.remove);
     this.each(function() {
       $(this).find("*").add(this).filter(function() {
-        return !$(this).is(dont);
+        return !$(this).is(dontHighlight);
       }).filter(function() {
         return this.childElementCount === 0 || Array.prototype.slice.call(this.childNodes).some(function(dd) {
           return dd.nodeType === Node.TEXT_NODE;
@@ -1597,7 +1602,7 @@
   };
   $.fn.fabulous.defaults = {
     style: "cubehelix-rainbow",
-    cycle: 8,
+    cycle: 16,
     rotation: 0,
     glow: true,
     disableOtherSelectionStyles: true,

@@ -36,6 +36,9 @@ $.fn.fabulous = function(options) {
   } else if (opts.style === "rainbow") {
     scale = d3.scale.linear().domain([0, opts.cycle]).range([0, 360]);
     mode = function(hue) { return d3.hsl(hue, 1, 0.5); };
+  } else if (opts.style === "hcl-rainbow") {
+    scale = d3.scale.linear().domain([0, opts.cycle]).range([0, 360]);
+    mode = function(hue) { return d3.hcl(hue, 100, 75); };
   } else if (opts.style === "pride") {
     if (options.cycle && options.cycle !== 6) {
       console.log("Using the Pride style. Overriding cycle setting to 6.");
@@ -138,7 +141,7 @@ $.fn.fabulous = function(options) {
 
 $.fn.fabulous.defaults = {
   style: "cubehelix-rainbow",
-  cycle: 8,
+  cycle: 16,
   rotation: 0,
   glow: true,
   disableOtherSelectionStyles: true,
