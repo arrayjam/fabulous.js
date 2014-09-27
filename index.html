@@ -131,6 +131,7 @@
       <pre>$(selection).fabulous(options)</pre>
       <p>Options are passed to Fabulous.js through an object literal.</p>
 
+      <div class="example" id="style-example"></div>
       <h3><a id="style" href="#style">#</a> style (String)</h3>
       <ul>
         <li>"cubehelix-rainbow" (Default): The "Less-Angry Rainbow" color scale by Mike Bostock, inpired by Matteo Niccoli's perceptual rainbow.</li>
@@ -215,9 +216,12 @@
   <script src="jquery.js"></script>
   <script src="jquery.fabulous.min.js"></script>
   <script src="jquery.lettering.js"></script>
+  <script src="react/react.js"></script>
+  <script src="react/JSXTransformer.js"></script>
   <script type="text/javascript">
     $("split").lettering();
     $("body").fabulous({remove: $(".example")});
     window.getSelection().selectAllChildren(document);
   </script>
+  <script type="text/jsx" src="components.js.jsx"></script>
 </body>
