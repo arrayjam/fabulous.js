@@ -3,7 +3,7 @@
 // Allow editing of code example and evaluate
 var OptionsExample = React.createClass({
   getInitialState: function() {
-    return { optionsHash: this.props.documentation.options[0].code };
+    return { optionsHash: "" };
   },
 
   handleCodeChange: function(optionsHash) {
@@ -53,13 +53,29 @@ var OptionsExample = React.createClass({
 var OptionsExampleResult = React.createClass({
   componentDidUpdate: function() {
     eval(this.props.evalString);
-    window.getSelection().selectAllChildren(this.refs.result.getDOMNode());
+    setTimeout(function() {
+      window.getSelection().selectAllChildren(this.refs.result.getDOMNode());
+    }.bind(this), 1);
   },
 
   render: function() {
     return (
-      <div key={+new Date} id={this.props.id} ref="result">
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+      <div key={+new Date()} id={this.props.id} ref="result">
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
       </div>
     );
   }
@@ -68,7 +84,7 @@ var OptionsExampleResult = React.createClass({
 var OptionsExampleEvaluator = React.createClass({
   render: function() {
     return (
-      <div>$("{this.props.selector}").fabulous({"{ "}<span contentEditable onInput={this.handleInput}>{this.props.optionsHash}</span>{" }"});</div>
+      <div>$("{this.props.selector}").fabulous({"{ "}<span>{this.props.optionsHash}</span>{" }"});</div>
     );
   },
 
@@ -90,18 +106,28 @@ var OptionsExampleOption = React.createClass({
   }
 });
 
-var styleDocumentation = {
-  name: "style-options",
-  options: [
-    { name: "cubehelix-rainbow", code: "style: \"cubehelix-rainbow\", cycle: 20" },
-    { name: "hcl-rainbow",       code: "style: \"hcl-rainbow\", remove: $('#hurr')" },
-    { name: "rainbow",           code: "style: \"rainbow\", glow: true" },
-    { name: "pride",             code: "style: \"pride\"" }
-  ]
-};
+React.renderComponent(
+  <OptionsExample documentation={{
+    name: "style-options",
+    options: [
+      { name: "cubehelix-rainbow", code: "style: \"cubehelix-rainbow\"" },
+      { name: "hcl-rainbow",       code: "style: \"hcl-rainbow\"" },
+      { name: "rainbow",           code: "style: \"rainbow\"" },
+      { name: "pride",             code: "style: \"pride\"" }
+    ]
+  }} />,
+  $("#style-example")[0]
+);
 
 React.renderComponent(
-  <OptionsExample documentation={styleDocumentation} />,
-  $("#style-example")[0]
+  <OptionsExample documentation={{
+    name: "cycle-options",
+    options: [
+      { name: "8", code: "cycle: 8" },
+      { name: "20",       code: "cycle: 20" },
+      { name: "200",           code: "cycle: 200" },
+    ]
+  }} />,
+  $("#cycle-example")[0]
 );
 
