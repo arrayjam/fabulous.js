@@ -84,7 +84,7 @@ var OptionsExampleResult = React.createClass({
 var OptionsExampleEvaluator = React.createClass({
   render: function() {
     return (
-      <div>$("{this.props.selector}").fabulous({"{ "}<span>{this.props.optionsHash}</span>{" }"});</div>
+      <code>$("{this.props.selector}").fabulous({"{ "}<span>{this.props.optionsHash}</span>{" }"});</code>
     );
   },
 
@@ -101,7 +101,7 @@ var OptionsExampleOption = React.createClass({
 
   render: function() {
     return (
-      <li onClick={this.handleClick}>{this.props.optionName}</li>
+      <li onClick={this.handleClick}><code>{this.props.optionName}</code></li>
     );
   }
 });
@@ -123,11 +123,37 @@ React.renderComponent(
   <OptionsExample documentation={{
     name: "cycle-options",
     options: [
-      { name: "8", code: "cycle: 8" },
-      { name: "20",       code: "cycle: 20" },
-      { name: "200",           code: "cycle: 200" },
+      { name: "8",   code: "cycle: 8" },
+      { name: "20",  code: "cycle: 20" },
+      { name: "200", code: "cycle: 200" },
     ]
   }} />,
   $("#cycle-example")[0]
 );
+
+React.renderComponent(
+  <OptionsExample documentation={{
+    name: "rotation-options",
+    options: [
+      { name: "0", code: "rotation: 0" },
+      { name: "1", code: "rotation: 1" },
+      { name: "2", code: "rotation: 2" },
+      { name: "3", code: "rotation: 3" },
+      { name: "8", code: "rotation: 8" },
+    ]
+  }} />,
+  $("#rotation-example")[0]
+);
+
+React.renderComponent(
+  <OptionsExample documentation={{
+    name: "glow-options",
+    options: [
+      { name: "true",  code: "glow: true" },
+      { name: "false", code: "glow: false" },
+    ]
+  }} />,
+  $("#glow-example")[0]
+);
+
 
