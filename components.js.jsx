@@ -33,9 +33,9 @@ var OptionsExample = React.createClass({
   },
 
   render: function() {
-    var options = this.props.documentation.options.map(function(option) {
+    var options = this.props.documentation.options.map(function(option, index) {
       return (
-        <OptionsExampleOption optionName={option.name} optionHash={option.code} onOptionSelect={this.handleCodeChange} />
+        <OptionsExampleOption key={index} optionName={option.name} optionHash={option.code} onOptionSelect={this.handleCodeChange} />
       );
     }.bind(this));
     return (
@@ -135,11 +135,9 @@ React.renderComponent(
   <OptionsExample documentation={{
     name: "rotation-options",
     options: [
-      { name: "0", code: "rotation: 0" },
-      { name: "1", code: "rotation: 1" },
-      { name: "2", code: "rotation: 2" },
-      { name: "3", code: "rotation: 3" },
-      { name: "8", code: "rotation: 8" },
+      { name: "0",   code: "rotation: 0, cycle: 200" },
+      { name: "50",  code: "rotation: 50, cycle: 200" },
+      { name: "100", code: "rotation: 100, cycle: 200" },
     ]
   }} />,
   $("#rotation-example")[0]
