@@ -1,9 +1,8 @@
 /** @jsx React.DOM */
 
-// Allow editing of code example and evaluate
 var OptionsExample = React.createClass({
   getInitialState: function() {
-    return { optionsHash: "" };
+    return { optionsHash: "", evalString: "" };
   },
 
   handleCodeChange: function(optionsHash) {
@@ -35,7 +34,7 @@ var OptionsExample = React.createClass({
   render: function() {
     var options = this.props.documentation.options.map(function(option, index) {
       return (
-        <OptionsExampleOption key={index} optionName={option.name} optionHash={option.code} onOptionSelect={this.handleCodeChange} />
+        <OptionsExampleOption key={index} optionName={option.name} optionHash={option.code} onOptionSelect={this.handleCodeChange} selected={option.code === this.state.optionsHash} />
       );
     }.bind(this));
     return (
@@ -101,7 +100,7 @@ var OptionsExampleOption = React.createClass({
 
   render: function() {
     return (
-      <li onClick={this.handleClick}><code>{this.props.optionName}</code></li>
+      <li className={this.props.selected ? "active" : ""} onClick={this.handleClick}><code>{this.props.optionName}</code></li>
     );
   }
 });
