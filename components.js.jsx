@@ -38,12 +38,16 @@ var OptionsExample = React.createClass({
       );
     }.bind(this));
     return (
-      <div>
-        <OptionsExampleEvaluator selector={this.resultSelector()} optionsHash={this.state.optionsHash} onCodeChange={this.handleCodeChange} />
-        <ul>
-          {options}
-        </ul>
-        <OptionsExampleResult id={this.props.documentation.name} evalString={this.state.evalString} />
+      <div className="clearfix">
+        <div className="sidebar">
+          <ul>
+            {options}
+          </ul>
+        </div>
+        <div className="right">
+          <OptionsExampleEvaluator selector={this.resultSelector()} optionsHash={this.state.optionsHash} />
+          <OptionsExampleResult id={this.props.documentation.name} evalString={this.state.evalString} />
+        </div>
       </div>
     );
   }
@@ -59,22 +63,19 @@ var OptionsExampleResult = React.createClass({
 
   render: function() {
     return (
-      <div key={+new Date()} id={this.props.id} ref="result">
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <br/>
+      <div className="result" key={+new Date()} id={this.props.id} ref="result">
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
       </div>
     );
   }
@@ -83,13 +84,9 @@ var OptionsExampleResult = React.createClass({
 var OptionsExampleEvaluator = React.createClass({
   render: function() {
     return (
-      <code>$("{this.props.selector}").fabulous({"{ "}<span>{this.props.optionsHash}</span>{" }"});</code>
+      <pre className="code">$("{this.props.selector}").fabulous({"{ "}<span>{this.props.optionsHash}</span>{" }"});</pre>
     );
   },
-
-  handleInput: function(event) {
-    this.props.onCodeChange(event.target.innerHTML);
-  }
 });
 
 var OptionsExampleOption = React.createClass({
