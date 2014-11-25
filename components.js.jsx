@@ -42,9 +42,9 @@ var OptionsExample = React.createClass({
     return (
       <div className="clearfix">
         <div className="sidebar">
-          <ul>
+          <div>
             {options}
-          </ul>
+          </div>
         </div>
         <div className="right">
           <OptionsExampleEvaluator selector={this.resultSelector()} optionsHash={this.state.optionsHash} />
@@ -57,6 +57,8 @@ var OptionsExample = React.createClass({
 
 var OptionsExampleResult = React.createClass({
   componentDidUpdate: function() {
+    console.log($("#"+this.props.id).find(".rainbow"));
+    $("#"+this.props.id).find(".rainbow").lettering();
     eval(this.props.evalString);
     setTimeout(function() {
       window.getSelection().selectAllChildren(this.refs.result.getDOMNode());
@@ -66,18 +68,7 @@ var OptionsExampleResult = React.createClass({
   render: function() {
     return (
       <div className="result" key={+new Date()} id={this.props.id} ref="result">
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
-        <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span> <span>Things</span>
+        <p>Lemon drops <b>muffin fruitcake</b>. Gummi bears wafer <i>candy liquorice</i>. Toffee <span>bonbon</span> donut jelly-o marzipan pie candy canes <span>muffin</span>. Apple pie cotton candy dragée apple pie. <span>Apple</span> pie sugar plum <span>gummies</span> biscuit gummi bears chocolate bar fruitcake. Gummies dessert <span className="rainbow">cupcake</span> candy canes fruitcake. <span className="rainbow">Cupcake</span> tootsie roll <span>powder</span> tart halvah <span>marzipan</span> sesame snaps ice <span>cream</span> carrot cake. <span className="rainbow">Cupcake</span> applicake chocolate sugar <span>plum</span> pastry wafer. Sugar plum danish <span>wafer</span> dragée. Halvah <span>fruitcake</span> danish donut liquorice cotton candy<span>.</span> Tart pudding <span>cake</span> gingerbread pie <span className="rainbow">cupcake</span> jelly.</p>
       </div>
     );
   }

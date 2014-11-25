@@ -56,7 +56,6 @@
     .sidebar {
       float: left;
       width: 180px;
-      height: 200px;
       text-align: right;
       margin-left: -210px;
       margin-top: 60px;
@@ -64,8 +63,8 @@
 
     .right {
       float: left;
-      height: 200px;
-      overflow: hidden;
+      height: 220px;
+      overflow: auto;
     }
 
     .code {
@@ -87,7 +86,7 @@
 <body style="background: #222;">
   <section style="background-color: #333; margin-bottom: 20px;">
     <div class="container">
-      <h1 style="color: #eee; text-align: center; font-size: 40px; padding: 60px 0;"><split>Fabulous.js</split></h1>
+      <h1 style="color: #eee; text-align: center; font-size: 40px; padding: 60px 0;"><rainbow>Fabulous.js</rainbow></h1>
     </div>
   </section>
 
@@ -97,7 +96,7 @@
         Lots and lots and lots of people select text while reading it on the web.
         You're probably doing it right now. But a blue background color is just
         too boring for the modern web experience. Your readers want novelties.
-        They want pretty things. Do they want <split>rainbows</split>? Let's assume they do.
+        They want pretty things. Do they want <rainbow>rainbows</rainbow>? Let's assume they do.
         This is where Fabulous.js comes in.
       </p>
 
@@ -110,7 +109,7 @@
       <h2>What?</h2>
 
       <p>
-        Fabulous.js turns selected text into a <split>rainbow</split>.
+        Fabulous.js turns selected text into a <rainbow>rainbow</rainbow>.
       </p>
       <p>
         It is a jquery plugin.
@@ -137,7 +136,7 @@
 
       <p>
         By default, Fabulous.js is very naughty and disables the selection <em>styles</em> of all elements not
-        <split>rainbowed</split> by Fabulous.js&mdash;The text is still selected, but there is no visual feedback&mdash;which could massively annoy some of your users.
+        <rainbow>rainbowed</rainbow> by Fabulous.js&mdash;The text is still selected, but there is no visual feedback&mdash;which could massively annoy some of your users.
         Pass false to the <code>disableOtherSelectionStyles</code> option to turn off this
         behaviour.
       </p>
@@ -227,7 +226,7 @@
       <div class="option">
         <h3><a id="remove" href="#remove">#</a> remove (jQuery selection)</h3>
         <p>Doesn't apply fabulous.js to the passed selection or its children.</p>
-        <p>In this documentation, it's used to separate the main <split>rainbow</split> from the documentation examples.</p>
+        <p>In this documentation, it's used to separate the main <rainbow>rainbow</rainbow> from the documentation examples.</p>
       </div>
 
       <div class="option">
@@ -254,7 +253,7 @@
   <script src="react/react-with-addons.js"></script>
   <script src="react/JSXTransformer.js"></script>
   <script type="text/javascript">
-    $("split").lettering();
+    $("rainbow, .rainbow").lettering();
     $("body").fabulous({remove: $(".example")});
     window.getSelection().selectAllChildren(document);
   </script>
