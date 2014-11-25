@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 
+var cx = React.addons.classSet;
+
 var OptionsExample = React.createClass({
   getInitialState: function() {
     return { optionsHash: "", evalString: "" };
@@ -96,8 +98,13 @@ var OptionsExampleOption = React.createClass({
   },
 
   render: function() {
+    var classes = cx({
+      "active": this.props.selected,
+      "code-select btn btn-success btn-sm btn-block": true
+    });
+
     return (
-      <li className={this.props.selected ? "active" : ""} onClick={this.handleClick}><code>{this.props.optionName}</code></li>
+      <li className={classes} onClick={this.handleClick}>{this.props.optionName}</li>
     );
   }
 });

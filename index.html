@@ -20,11 +20,22 @@
 
     li {
       list-style-type: none;
-      padding: 5px 0;
     }
 
     h1, h2, h3, h4 {
       font-family: 'Raleway', sans-serif;
+    }
+
+    .option h3 {
+      margin-left: -1em;
+    }
+
+    .option h3 a {
+      visibility: hidden;
+    }
+
+    .option:hover a {
+      visibility: visible;
     }
 
     body {
@@ -44,10 +55,11 @@
 
     .sidebar {
       float: left;
-      width: 200px;
+      width: 180px;
       height: 200px;
       text-align: right;
-      margin-left: -230px;
+      margin-left: -210px;
+      margin-top: 60px;
     }
 
     .right {
@@ -63,6 +75,11 @@
     .result {
       overflow-y: scroll;
       padding: 10px;
+    }
+
+    .code-select {
+      font-family: 'Ubuntu Mono', monospace;
+      text-align: right;
     }
 
   </style>
@@ -92,26 +109,24 @@
     <section>
       <h2>What?</h2>
 
-      <ul>
-        <li>
-          Fabulous.js turns selected text into a <split>rainbow</split>.
-        </li>
-        <li>
-          It is a jquery plugin.
-        </li>
-        <li>
-          Yes, it is silly.
-        </li>
-        <li>
-          No, you probably shouldn't use it.
-        </li>
-        <li>
-          It only really works well on websites with darker backgrounds.
-        </li>
-        <li>
-          It can make your content feel&hellip; what's the word I'm looking for&hellip; fantastic? Terrific? Astonishing? It's right on the tip of my toungue&hellip;
-        </li>
-      </ul>
+      <p>
+        Fabulous.js turns selected text into a <split>rainbow</split>.
+      </p>
+      <p>
+        It is a jquery plugin.
+      </p>
+      <p>
+        Yes, it is silly.
+      </p>
+      <p>
+        No, you probably shouldn't use it.
+      </p>
+      <p>
+        It only really works well on websites with darker backgrounds.
+      </p>
+      <p>
+        It can make your content feel&hellip; what's the word I'm looking for&hellip; fantastic? Terrific? Astonishing? It's right on the tip of my toungue&hellip;
+      </p>
 
       <h2>Take Heed</h2>
       <p>
@@ -154,77 +169,89 @@
       <pre>$(selection).fabulous(options)</pre>
       <p>Options are passed to Fabulous.js through an object literal.</p>
 
-      <h3><a id="style" href="#style">#</a> style (String)</h3>
-      <ul>
-        <li>"cubehelix-rainbow" (Default): The "Less-Angry Rainbow" color scale by Mike Bostock, inpired by Matteo Niccoli's perceptual rainbow.</li>
-        <li>"rainbow": A standard cycling of hues. Very pretty, but the yellows are harder to read.</li>
-        <li>"pride": The LGBT movement flag. This forces the cycle option to 6 so that the correct colors are maintained.</li>
-      </ul>
-      <div class="example" id="style-example"></div>
+      <div class="option">
+        <h3><a id="style" href="#style">#</a> style (String)</h3>
+        <p>"cubehelix-rainbow" (Default): The "Less-Angry Rainbow" color scale by Mike Bostock, inpired by Matteo Niccoli's perceptual rainbow.</p>
+        <p>"rainbow": A standard cycling of hues. Very pretty, but the yellows are harder to read.</p>
+        <p>"pride": The LGBT movement flag. This forces the cycle option to 6 so that the correct colors are maintained.</p>
+        <div class="example" id="style-example"></div>
+      </div>
 
-      <h3><a id="cycle" href="#cycle">#</a> cycle (Number)</h3>
-      <p>
-        The wavelength of the rainbow, as measured in the number of elements. Use
-        a bigger number (~100) to have a smooth color transition, and a smaller
-        number to cycle through a few colors quickly.
-      </p>
-      <div class="example" id="cycle-example"></div>
+      <div class="option">
+        <h3><a id="cycle" href="#cycle">#</a> cycle (Number)</h3>
+        <p>
+          The wavelength of the rainbow, as measured in the number of elements. Use
+          a bigger number (~100) to have a smooth color transition, and a smaller
+          number to cycle through a few colors quickly.
+        </p>
+        <div class="example" id="cycle-example"></div>
+      </div>
 
-      <h3><a id="rotation" href="#rotation">#</a> rotation (Number)</h3>
-      <p>
-        Rotate the rainbow by a given amount.
-      </p>
-      <div class="example" id="rotation-example"></div>
+      <div class="option">
+        <h3><a id="rotation" href="#rotation">#</a> rotation (Number)</h3>
+        <p>
+          Rotate the rainbow by a given amount.
+        </p>
+        <div class="example" id="rotation-example"></div>
+      </div>
 
-      <h3><a id="glow" href="#glow">#</a> glow (Boolean)</h3>
-      <p>
-        Adds a glow to the highlighted text. WebKit browsers allow selection
-        text-shadow to extend beyond the bounds of the text, so the glow amount is
-        quite large. Firefox doesn't, so the glow amount is quite small.
-      </p>
-      <div class="example" id="glow-example"></div>
+      <div class="option">
+        <h3><a id="glow" href="#glow">#</a> glow (Boolean)</h3>
+        <p>
+          Adds a glow to the highlighted text. WebKit browsers allow selection
+          text-shadow to extend beyond the bounds of the text, so the glow amount is
+          quite large. Firefox doesn't, so the glow amount is quite small.
+        </p>
+        <div class="example" id="glow-example"></div>
+      </div>
 
-      <h3><a id="disableOtherSelectionStyles" href="#disableOtherSelectionStyles">#</a> disableOtherSelectionStyles (Boolean)</h3>
-      <p>
-        Adds a blanket rule to all non-Fabulous'd elements that disables selection
-        highlight. It doesn't actually disable selection, but only makes it look
-        that way.
-      </p>
+      <div class="option">
+        <h3><a id="disableOtherSelectionStyles" href="#disableOtherSelectionStyles">#</a> disableOtherSelectionStyles (Boolean)</h3>
+        <p>
+          Adds a blanket rule to all non-Fabulous'd elements that disables selection
+          highlight. It doesn't actually disable selection, but only makes it look
+          that way.
+        </p>
 
-      <ul class="nav nav-tabs nav-justified" role="tablist">
-        <li><a href="#">true (Default)</a></li>
-        <li><a href="#">false</a></li>
-      </ul>
+        <p>True (Default)</p>
+        <p>False</p>
+      </div>
 
-      <h3><a id="preview" href="#preview">#</a> preview (Boolean)</h3>
-      <p>
-        Generates a nice little preview of the selection style in console.log.
-      </p>
+      <div class="option">
+        <h3><a id="preview" href="#preview">#</a> preview (Boolean)</h3>
+        <p>
+          Generates a nice little preview of the selection style in console.log.
+        </p>
+      </div>
 
-      <h3><a id="remove" href="#remove">#</a> remove (jQuery selection)</h3>
-      <p>Doesn't apply fabulous.js to the passed selection or its children.</p>
-      <p>In this documentation, it's used to separate the main <split>rainbow</split> from the documentation examples.</p>
+      <div class="option">
+        <h3><a id="remove" href="#remove">#</a> remove (jQuery selection)</h3>
+        <p>Doesn't apply fabulous.js to the passed selection or its children.</p>
+        <p>In this documentation, it's used to separate the main <split>rainbow</split> from the documentation examples.</p>
+      </div>
 
-      <h2>Lettering.js</h2>
+      <div class="option">
+        <h3><a id="lettering" href="#lettering">#</a> Lettering.js</h3>
 
-      <p>
-        Lettering.js lets you split up text into many smaller elements. If you
-        want a sweet-as title like at the top of this page, include
-        jquery.lettering.js in your application, and call lettering() and then
-        fabulous() on your jquery selection.
-      </p>
+        <p>
+          Lettering.js lets you split up text into many smaller elements. If you
+          want a sweet-as title like at the top of this page, include
+          jquery.lettering.js in your application, and call lettering() and then
+          fabulous() on your jquery selection.
+        </p>
 
-      <pre>$("h1").lettering().fabulous()</pre>
+        <pre>$("h1").lettering().fabulous()</pre>
+      </div>
     </section>
 
     <footer>
-      A thing by Yuri Feldman <a href="https://twitter.com/arrayjam">@arrayjam</a>
+      Oh god why does this exist? (Because <a href="https://twitter.com/arrayjam">@arrayjam</a> made it)
     </footer>
   </div>
   <script src="jquery.js"></script>
   <script src="jquery.fabulous.js"></script>
   <script src="jquery.lettering.js"></script>
-  <script src="react/react.js"></script>
+  <script src="react/react-with-addons.js"></script>
   <script src="react/JSXTransformer.js"></script>
   <script type="text/javascript">
     $("split").lettering();
