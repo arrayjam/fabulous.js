@@ -8,12 +8,6 @@ var numberOfTimesCalled = 0;
 var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
 
 $.fn.fabulous = function(calledOptions) {
-  // styles
-  //    - cubehelix-rainbow
-  //    - rainbow
-  //    - pride
-
-  var opts = $.extend({}, $.fn.fabulous.defaults, calledOptions);
   numberOfTimesCalled++;
 
   opts.cycle = ~~opts.cycle;
