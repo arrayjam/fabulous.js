@@ -1514,8 +1514,8 @@
   }
   var numberOfTimesCalled = 0;
   var prideColors = [ "#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787" ];
-  $.fn.fabulous = function(options) {
-    var opts = $.extend({}, $.fn.fabulous.defaults, options);
+  $.fn.fabulous = function(calledOptions) {
+    var opts = $.extend({}, $.fn.fabulous.defaults, calledOptions);
     numberOfTimesCalled++;
     opts.cycle = ~~opts.cycle;
     opts.rotation = ~~opts.rotation;
@@ -1534,7 +1534,7 @@
         return d3.hcl(hue, 100, 75);
       };
     } else if (opts.style === "pride") {
-      if (options.cycle && options.cycle !== 6) {
+      if (opts.cycle && opts.cycle !== 6) {
         console.log("Using the Pride style. Overriding cycle setting to 6.");
         consoleStripe(prideColors);
         opts.cycle = 6;
@@ -1606,7 +1606,7 @@
     rotation: 0,
     glow: true,
     disableOtherSelectionStyles: true,
-    preview: false,
+    preview: true,
     remove: $(),
     styleTagClass: ""
   };

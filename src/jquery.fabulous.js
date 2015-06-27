@@ -7,13 +7,13 @@ import "arrays/range";
 var numberOfTimesCalled = 0;
 var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
 
-$.fn.fabulous = function(options) {
+$.fn.fabulous = function(calledOptions) {
   // styles
   //    - cubehelix-rainbow
   //    - rainbow
   //    - pride
 
-  var opts = $.extend({}, $.fn.fabulous.defaults, options);
+  var opts = $.extend({}, $.fn.fabulous.defaults, calledOptions);
   numberOfTimesCalled++;
 
   opts.cycle = ~~opts.cycle;
@@ -40,7 +40,7 @@ $.fn.fabulous = function(options) {
     scale = d3.scale.linear().domain([0, opts.cycle]).range([0, 360]);
     mode = function(hue) { return d3.hcl(hue, 100, 75); };
   } else if (opts.style === "pride") {
-    if (options.cycle && options.cycle !== 6) {
+    if (opts.cycle && opts.cycle !== 6) {
       console.log("Using the Pride style. Overriding cycle setting to 6.");
       consoleStripe(prideColors);
       opts.cycle = 6;
@@ -145,7 +145,7 @@ $.fn.fabulous.defaults = {
   rotation: 0,
   glow: true,
   disableOtherSelectionStyles: true,
-  preview: false,
+  preview: true,
   remove: $(),
   styleTagClass: ""
 };
