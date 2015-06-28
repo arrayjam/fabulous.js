@@ -27,6 +27,7 @@ export default function () {
       glow = true,
       styleTagClass = "fabulous-styles",
       disableOtherSelectionStyles = true,
+      exclude = ".nope",
       preview = true;
 
   function my(selector) {
@@ -59,33 +60,41 @@ export default function () {
         .class(styleTagClass, true)
         .html(generateStyleTag(colors, glow, disableOtherSelectionStyles, classPrefix));
 
-    var allElements = [];
-    var selection = selectAll(selector);
-    console.log(selection.nodes(), selection.size());
-    selection.each(function() {
-      // TODO(yuri): Decide if the root element needs a chance to be classed
-      // TODO(yuri): Maybe just mention that all elements have to be wrapped, no pesky text nodes?
-      // allElements.push(this);
 
-      select(this).selectAll("*").each(function() { allElements.push(this); });
-    });
+    var selectedElements = getAllElementsFromSelector(selector);
+    console.log("Selected Elements", selectedElements);
+    if(exclude) {
+      var excludedElements = getAllElementsFromSelector(exclude);
+      console.log("Excluded Elements", excludedElements);
+      console.log(excludedElements);
+      selectedElements = selectedElements.filter(function(element) {
+        return excludedElements.indexOf(element) === -1;
+      });
+    }
 
-    // TODO(yuri): Exclusion of elements by option selector
-    console.log(allElements);
-    selectAll(allElements)
+    console.log("Final Elements", selectedElements);
+
+    console.log(selectAll(selectedElements)
         .filter(function() {
           // NOTE(yuri): Only take the
           // 1) Leaf nodes, or
           // 2) Nodes which have direct text node children
           // 3) Block-level nodes (???)
-          return this.childElementCount === 0 ||
-            Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; }) ||
-            getComputedStyle(this).display !== "inline";
+          // TODO(yuri): Figure out whether to include 3)
+          var result = this.childElementCount === 0 ||
+           Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; });
+          // getComputedStyle(this).display !== "inline";
+
+          if(!result) {
+            console.log("Filter excluded", this);
+          }
+          return result;
+          // return true;
         })
         .each(function(_, index) {
           var className = classPrefix + (index % cycle).toString();
           select(this).class(className, true);
-        });
+        }).size());
 
     function CubehelixStyle(cycle, intensity) {
       var cycleScale = linear().domain([0, cycle]).range([0, 360]);
@@ -168,6 +177,19 @@ export default function () {
         ];
       }
     }
+
+    function getAllElementsFromSelector(selector) {
+      var result = [];
+      var selection = selectAll(selector);
+      console.log(selection.nodes(), selection.size());
+      selection.each(function() {
+        result.push(this);
+
+        select(this).selectAll("*").each(function() { result.push(this); });
+      });
+
+      return result;
+    }
   }
 
   my.style = function(_) {
@@ -209,6 +231,12 @@ export default function () {
   my.disableOtherSelectionStyles = function(_) {
     if(!arguments.length) return disableOtherSelectionStyles;
     disableOtherSelectionStyles = _;
+    return my;
+  };
+
+  my.exclude = function(_) {
+    if(!arguments.length) return exclude;
+    exclude = _;
     return my;
   };
 
