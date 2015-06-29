@@ -2204,19 +2204,26 @@
 
     function bundle () {
       console.log("init stuff");
-      var cycle = 10,
+      var cycle = 26,
           style = "hcl",
-          intensity = 0.8,
+          intensity = 0.6,
           rotation = 86,
           glow = true,
           styleTagClass = "fabulous-styles",
-          disableOtherSelectionStyles = true,
+          disableOtherSelectionStyles = false,
           exclude = ".nope",
+          selection = false,
+          text = true,
           preview = true;
 
       function my(selector) {
         if(instanceIndex !== undefined) instanceIndex++;
         console.log("instanceIndex", instanceIndex);
+
+        if(!selection && !text) {
+          console.log("Neither .selection nor .text are set! Nothing for me to do.");
+          return;
+        }
 
         rotation = rotation % cycle;
 
@@ -2242,7 +2249,7 @@
         var classPrefix = "fabulous-" + instanceIndex + "-";
         select("body").append("style")
             .class(styleTagClass, true)
-            .html(generateStyleTag(colors, glow, disableOtherSelectionStyles, classPrefix));
+            .html(generateStyleTag(colors, glow, disableOtherSelectionStyles, classPrefix, selection, text));
 
 
         var selectedElements = getAllElementsFromSelector(selector);
@@ -2321,13 +2328,19 @@
                       "background: " + color + "; color: " + color + ";");
         }
 
-        function generateStyleTag(colors, glow, disableOtherSelectionStyles, classPrefix) {
+        function generateStyleTag(colors, glow, disableOtherSelectionStyles, classPrefix, selection, text) {
           var styleDeclarations = [];
           colors.forEach(function(color, index) {
             var className = classPrefix + index.toString();
 
-            styleDeclarations.push(generateStyleDeclarations(color, className, glow));
-            styleDeclarations.push(generateStyleDeclarationsGecko(color, className, glow));
+            if(selection) {
+              styleDeclarations.push(generateSelectionStyleDeclarations(color, className, glow));
+              styleDeclarations.push(generateSelectionStyleDeclarationsGecko(color, className, glow));
+            }
+
+            if(text) {
+              styleDeclarations.push(generateTextStyleDeclarations(color, className, glow));
+            }
           });
 
           if (disableOtherSelectionStyles) {
@@ -2338,7 +2351,7 @@
           // console.log(styleDeclarations);
           return styleDeclarations.join("\n");
 
-          function generateStyleDeclarations(color, className, glow) {
+          function generateSelectionStyleDeclarations(color, className, glow) {
             var declarations = generateDeclarations(color);
 
             // NOTE(yuri): WebKit browsers display a nice glow, so we give it 40px
@@ -2346,12 +2359,20 @@
             return "." + className + "::selection { " + declarations.join("; ") + " }";
           }
 
-          function generateStyleDeclarationsGecko(color, className, glow) {
+          function generateSelectionStyleDeclarationsGecko(color, className, glow) {
             var declarations = generateDeclarations(color);
 
             // NOTE(yuri): Firefox's text-shadow doesn't extend past the line-height, so give it only a bit
             if (glow) declarations.push("text-shadow: 0 0 5px " + color);
             return "." + className + "::-moz-selection { " + declarations.join("; ") + " }";
+          }
+
+          function generateTextStyleDeclarations(color, className, glow) {
+            var declarations = generateDeclarations(color);
+
+            // NOTE(yuri): WebKit browsers display a nice glow, so we give it 40px
+            if (glow) declarations.push("text-shadow: 0 0 40px " + color);
+            return "." + className + " { " + declarations.join("; ") + " }";
           }
 
           function generateDeclarations(color) {
@@ -2421,6 +2442,18 @@
       my.exclude = function(_) {
         if(!arguments.length) return exclude;
         exclude = _;
+        return my;
+      };
+
+      my.selection = function(_) {
+        if(!arguments.length) return selection;
+        selection = _;
+        return my;
+      };
+
+      my.text = function(_) {
+        if(!arguments.length) return text;
+        text = _;
         return my;
       };
 
