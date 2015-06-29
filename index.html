@@ -134,7 +134,7 @@
         CSS4. Despite that, it works in all major browsers except IE 7/8.
       </p>
 
-      <p>
+      <p class="nope">
         By default, Fabulous.js is very naughty and disables the selection <em>styles</em> of all elements not
         <rainbow>rainbowed</rainbow> by Fabulous.js&mdash;The text is still selected, but there is no visual feedback&mdash;which could massively annoy some of your users.
         Pass false to the <code>disableOtherSelectionStyles</code> option to turn off this
@@ -248,13 +248,14 @@
     </footer>
   </div>
   <script src="jquery.js"></script>
-  <script src="jquery.fabulous.js"></script>
+  <script src="fabulous.js"></script>
+  <script src="d3.js"></script>
   <script src="jquery.lettering.js"></script>
   <script src="react/react-with-addons.js"></script>
   <script src="react/JSXTransformer.js"></script>
   <script type="text/javascript">
     $("rainbow, .rainbow").lettering();
-    $("body").fabulous({remove: $(".example")});
+    fabulous()("section")
     window.getSelection().selectAllChildren(document);
     $(".lights").on("click", function() {
       window.getSelection().selectAllChildren(document);

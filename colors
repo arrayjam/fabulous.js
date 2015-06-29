@@ -1,0 +1,69 @@
+#99f257
+#afef5a
+#b8e54a
+#c3d83e
+#d0cb35
+#dcbd2f
+#e9ae2e
+#f49f30
+#fe9035
+#ff823e
+#ff7448
+#ff6855
+#ff5d63
+#ff5471
+#ff4c7f
+#f5468d
+#e94199
+#da3ea3
+#c93dab
+#b73cb0
+
+
+1900 #6d3fa9
+1905 #6848b8
+1910 #6251c4
+1915 #5a5ccf
+1920 #5168d8
+1925 #4774de
+1930 #3d81e0
+1935 #338fe0
+1940 #2a9ddd
+1945 #23aad8
+1950 #1db7cf
+1955 #1ac4c4
+1965 #19cfb8
+1970 #1bdaaa
+1975 #20e29b
+1980 #28ea8c
+1985 #33ef7e
+1990 #41f371
+1995 #52f566
+2000 #64f65e
+2005 #79f558
+2010 #8ef456
+
+[const_yr>=1800] { polygon-fill: #a53cb2; }
+[const_yr>=1850] { polygon-fill: #923db2; }
+[const_yr>=1900] { polygon-fill: #7f3eaf; }
+[const_yr>=1905] { polygon-fill: #6d3fa9; }
+[const_yr>=1910] { polygon-fill: #6848b8; }
+[const_yr>=1915] { polygon-fill: #6152c5; }
+[const_yr>=1920] { polygon-fill: #595dd0; }
+[const_yr>=1925] { polygon-fill: #5069d8; }
+[const_yr>=1930] { polygon-fill: #4676de; }
+[const_yr>=1935] { polygon-fill: #3c83e1; }
+[const_yr>=1940] { polygon-fill: #3291e0; }
+[const_yr>=1945] { polygon-fill: #299fdd; }
+[const_yr>=1950] { polygon-fill: #22add6; }
+[const_yr>=1955] { polygon-fill: #1cbacd; }
+[const_yr>=1965] { polygon-fill: #19c7c1; }
+[const_yr>=1970] { polygon-fill: #19d2b4; }
+[const_yr>=1975] { polygon-fill: #1cdca6; }
+[const_yr>=1980] { polygon-fill: #22e596; }
+[const_yr>=1985] { polygon-fill: #2bec87; }
+[const_yr>=1990] { polygon-fill: #38f179; }
+[const_yr>=1995] { polygon-fill: #47f46d; }
+[const_yr>=2000] { polygon-fill: #59f663; }
+[const_yr>=2005] { polygon-fill: #6df65b; }
+[const_yr>=2010] { polygon-fill: #82f557; }
