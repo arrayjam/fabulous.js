@@ -2204,28 +2204,32 @@
 
     function bundle () {
       console.log("init stuff");
-      var cycle = 26,
+      var cycle = 30,
           style = "hcl",
           intensity = 0.6,
-          rotation = 86,
+          rotation = 0,
+          randomRotation = false,
           glow = true,
           styleTagClass = "fabulous-styles",
-          disableOtherSelectionStyles = false,
-          exclude = ".nope",
-          selection = false,
-          text = true,
+          disableOtherSelectionStyles = true,
+          exclude = null,
+          selection = true,
+          text = false,
           preview = true;
 
       function my(selector) {
         if(instanceIndex !== undefined) instanceIndex++;
-        console.log("instanceIndex", instanceIndex);
 
         if(!selection && !text) {
           console.log("Neither .selection nor .text are set! Nothing for me to do.");
           return;
         }
 
-        rotation = rotation % cycle;
+        if(randomRotation) {
+          rotation = Math.floor(Math.random() * cycle);
+        } else {
+          rotation = rotation % cycle;
+        }
 
         var color;
         if(style === "cubehelix") {
@@ -2235,7 +2239,7 @@
         } else if(style === "hsl") {
           color = HSLStyle(cycle, intensity);
         } else if(style === "pride") {
-          color = PrideStyle();
+          color = PrideStyle(intensity);
           cycle = 6;
         } else {
           console.log("Style " + style + " not found. Defaulting to \"hcl\"");
@@ -2244,7 +2248,12 @@
 
         var colors = rotateArray(range(cycle).map(color), rotation);
 
-        if(preview) colors.forEach(logColor);
+        if(preview) {
+          console.log("Style: ", style);
+          console.log("Cycle: ", cycle);
+          console.log("Rotation: ", rotation);
+          colors.forEach(logColor);
+        }
 
         var classPrefix = "fabulous-" + instanceIndex + "-";
         select("body").append("style")
@@ -2253,19 +2262,15 @@
 
 
         var selectedElements = getAllElementsFromSelector(selector);
-        console.log("Selected Elements", selectedElements);
         if(exclude) {
           var excludedElements = getAllElementsFromSelector(exclude);
-          console.log("Excluded Elements", excludedElements);
-          console.log(excludedElements);
           selectedElements = selectedElements.filter(function(element) {
             return excludedElements.indexOf(element) === -1;
           });
         }
 
-        console.log("Final Elements", selectedElements);
 
-        console.log(selectAll(selectedElements)
+        selectAll(selectedElements)
             .filter(function() {
               // NOTE(yuri): Only take the
               // 1) Leaf nodes, or
@@ -2276,16 +2281,12 @@
                Array.prototype.slice.call(this.childNodes).some(function(dd) { return dd.nodeType === Node.TEXT_NODE; });
               // getComputedStyle(this).display !== "inline";
 
-              if(!result) {
-                console.log("Filter excluded", this);
-              }
               return result;
-              // return true;
             })
             .each(function(_, index) {
               var className = classPrefix + (index % cycle).toString();
               select(this).class(className, true);
-            }).size());
+            }).size();
 
         function CubehelixStyle(cycle, intensity) {
           var cycleScale = linear().domain([0, cycle]).range([0, 360]);
@@ -2311,8 +2312,13 @@
           };
         }
 
-        function PrideStyle() {
-          var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
+        function PrideStyle(intensity) {
+          var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"].map(function(d) {
+            var converted = hsl(d);
+            converted.s = intensity;
+            return converted;
+          });
+
           return function(index) {
             return prideColors[index];
           };
@@ -2348,7 +2354,6 @@
             styleDeclarations.push("::-moz-selection { background-color: transparent; }");
           }
 
-          // console.log(styleDeclarations);
           return styleDeclarations.join("\n");
 
           function generateSelectionStyleDeclarations(color, className, glow) {
@@ -2386,7 +2391,6 @@
         function getAllElementsFromSelector(selector) {
           var result = [];
           var selection = selectAll(selector);
-          console.log(selection.nodes(), selection.size());
           selection.each(function() {
             result.push(this);
 
@@ -2418,6 +2422,12 @@
       my.rotation = function(_) {
         if(!arguments.length) return rotation;
         rotation = _;
+        return my;
+      };
+
+      my.randomRotation = function(_) {
+        if(!arguments.length) return randomRotation;
+        randomRotation = _;
         return my;
       };
 
