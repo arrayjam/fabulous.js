@@ -104,6 +104,8 @@ export default function () {
           select(this).class(className, true);
         }).size();
 
+    return my;
+
     function CubehelixStyle(cycle, intensity) {
       var cycleScale = linear().domain([0, cycle]).range([0, 360]);
       var intensityValue = linear().domain([0, 1]).range([0, 2])(intensity);
@@ -128,13 +130,8 @@ export default function () {
       };
     }
 
-    function PrideStyle(intensity) {
-      var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"].map(function(d) {
-        var converted = hsl(d);
-        converted.s = intensity;
-        return converted;
-      });
-
+    function PrideStyle() {
+      var prideColors = ["#E40303", "#FF8C00", "#FFED00", "#008026", "#004DFF", "#750787"];
       return function(index) {
         return prideColors[index];
       };

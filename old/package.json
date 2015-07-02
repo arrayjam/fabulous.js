@@ -1,9 +1,0 @@
-{
-  "name": "fabulous.js",
-  "version": "0.0.1",
-  "description": "Silly highlighting",
-  "devDependencies": {
-    "smash": "~0.0.12",
-    "uglify-js": "2.4.0"
-  }
-}

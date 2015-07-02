@@ -1,1 +1,0 @@
-javascript:(function(){var url='https://rawgithub.com/arrayjam/fabulous.js/master/jquery.fabulous.min.js',s=document.createElement('script');s.type='text/javascript';s.charset='utf-8';s.src=url;document.body.appendChild(s);s.onload = function(){$("body").fabulous({preview: true});};})()
