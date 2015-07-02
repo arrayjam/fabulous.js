@@ -1,23 +1,33 @@
 {
-  "name": "fabulous-test",
+  "name": "fabulous.js",
   "version": "1.0.0",
-  "description": "",
-  "main": "bundle.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "description": "Turns selected text into rainbows!",
+  "keywords": [
+    "rainbow",
+    "fabulous",
+    "selection"
+  ],
+  "homepage": "https://arrayjam.github.io/fabulous.js",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Yuri Feldman",
+    "url": "http://yuri.io"
   },
+  "main": "build/fabulous.js",
   "repository": {
     "type": "git",
-    "url": "/Users/arrayjam/code/fabulous"
+    "url": "https://github.com/arrayjam/fabulous.js.git"
   },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "d3-arrays": "0.0.4",
+  "scripts": {
+    "prepublish": "mkdir -p build && d3-bundler --format=umd --name=fabulous -- index.js > build/fabulous.js && uglifyjs build/fabulous.js -c -m -o build/fabulous.min.js && rm -f build/fabulous.zip && zip -j build/fabulous-zip -- LICENSE README.md build/fabulous.js build/fabulous.min.js"
+  },
+  "devDependencies": {
+    "d3-arrays": "^0.0.4",
     "d3-color": "^0.2.1",
     "d3-format": "^0.2.3",
     "d3-interpolate": "^0.1.1",
-    "d3-scale": "0.0.2",
-    "d3-selection": "^0.4.7"
+    "d3-scale": "^0.0.2",
+    "d3-selection": "^0.4.7",
+    "uglify-js": "2"
   }
 }
