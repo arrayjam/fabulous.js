@@ -4,13 +4,14 @@ import {
 } from "d3-selection";
 
 import {
-  linear
+  linear,
+  rainbow
 } from "d3-scale";
 
 import {
-  cubehelix,
   hcl,
-  hsl
+  hsl,
+  cubehelix
 } from "d3-color";
 
 import {
@@ -19,10 +20,12 @@ import {
 
 var instanceIndex = 0;
 export default function () {
-  console.log("init stuff");
-  var cycle = 30,
-      style = "hcl",
-      intensity = 0.6,
+  var cycle = 12,
+      style = "cubehelix",
+      saturation = 0.5,
+      setSaturation = false,
+      lightness = 0.5,
+      setLightness = false,
       rotation = 0,
       randomRotation = false,
       glow = true,
@@ -49,17 +52,17 @@ export default function () {
 
     var color;
     if(style === "cubehelix") {
-      color = CubehelixStyle(cycle, intensity);
+      color = CubehelixStyle(cycle, saturation, lightness);
     } else if(style === "hcl") {
-      color = HCLStyle(cycle, intensity);
+      color = HCLStyle(cycle, saturation, lightness);
     } else if(style === "hsl") {
-      color = HSLStyle(cycle, intensity);
+      color = HSLStyle(cycle, saturation, lightness);
     } else if(style === "pride") {
-      color = PrideStyle(intensity);
+      color = PrideStyle(saturation, lightness);
       cycle = 6;
     } else {
       console.log("Style " + style + " not found. Defaulting to \"hcl\"");
-      color = HCLStyle(cycle, intensity);
+      color = HCLStyle(cycle, saturation, lightness);
     }
 
     var colors = rotateArray(range(cycle).map(color), rotation);
@@ -106,27 +109,46 @@ export default function () {
 
     return my;
 
-    function CubehelixStyle(cycle, intensity) {
-      var cycleScale = linear().domain([0, cycle]).range([0, 360]);
-      var intensityValue = linear().domain([0, 1]).range([0, 2])(intensity);
+    function CubehelixStyle(cycle, saturation, lightness) {
+      var cycleScale = linear().domain([0, cycle]).range([0, 1]);
+      var saturationValue = linear().domain([0, 1]).range([0, 2])(saturation);
+      var lightnessValue = linear().domain([0, 1]).range([0, 1])(lightness);
+      var rainbowScale = rainbow();
       return function(index) {
-        return cubehelix(cycleScale(index), intensityValue, 0.5);
+        var color = cubehelix(rainbowScale(cycleScale(index)));
+
+        if(setSaturation) color.s = saturationValue;
+        if(setLightness) color.l = lightnessValue;
+
+        return color;
       };
     }
 
-    function HCLStyle(cycle, intensity) {
+    function HCLStyle(cycle, saturation, lightness) {
       var cycleScale = linear().domain([0, cycle]).range([0, 360]);
-      var intensityValue = linear().domain([0, 1]).range([0, 100])(intensity);
+      var saturationValue = linear().domain([0, 1]).range([0, 100])(saturation);
+      var lightnessValue = linear().domain([0, 1]).range([0, 150])(lightness);
       return function(index) {
-        return hcl(cycleScale(index), intensityValue, 75);
+        var color = hcl(cycleScale(index), 50, 75);
+
+        if(setSaturation) color.c = saturationValue;
+        if(setLightness) color.l = lightnessValue;
+
+        return color;
       };
     }
 
-    function HSLStyle(cycle, intensity) {
+    function HSLStyle(cycle, saturation, lightness) {
       var cycleScale = linear().domain([0, cycle]).range([0, 360]);
-      var intensityValue = linear().domain([0, 1]).range([0, 1])(intensity);
+      var saturationValue = linear().domain([0, 1]).range([0, 2])(saturation);
+      var lightnessValue = linear().domain([0, 1]).range([0, 1])(lightness);
       return function(index) {
-        return hsl(cycleScale(index), intensityValue, 0.5);
+        var color = hsl(cycleScale(index), 1, 0.5);
+
+        if(setSaturation) color.s = saturationValue;
+        if(setLightness) color.l = lightnessValue;
+
+        return color;
       };
     }
 
@@ -226,9 +248,31 @@ export default function () {
     return my;
   };
 
-  my.intensity = function(_) {
-    if(!arguments.length) return intensity;
-    intensity = _;
+  my.saturation = function(_) {
+    if(!arguments.length) {
+      if(setSaturation) {
+        return saturation;
+      } else {
+        return false;
+      }
+    }
+
+    saturation = _;
+    setSaturation = true;
+    return my;
+  };
+
+  my.lightness = function(_) {
+    if(!arguments.length) {
+      if(setLightness) {
+        return lightness;
+      } else {
+        return false;
+      }
+    }
+
+    lightness = _;
+    setLightness = true;
     return my;
   };
 

@@ -22,11 +22,11 @@
     "prepublish": "mkdir -p build && d3-bundler --format=umd --name=fabulous -- index.js > build/fabulous.js && uglifyjs build/fabulous.js -c -m -o build/fabulous.min.js && rm -f build/fabulous.zip && zip -j build/fabulous-zip -- LICENSE README.md build/fabulous.js build/fabulous.min.js"
   },
   "devDependencies": {
-    "d3-arrays": "^0.0.4",
+    "d3-arrays": "0.0.4",
     "d3-color": "^0.2.1",
     "d3-format": "^0.2.3",
     "d3-interpolate": "^0.1.1",
-    "d3-scale": "^0.0.2",
+    "d3-scale": "git+ssh://git@github.com/d3/d3-scale.git",
     "d3-selection": "^0.4.7",
     "uglify-js": "2"
   }
