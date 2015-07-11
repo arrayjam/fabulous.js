@@ -26974,7 +26974,7 @@ var Configuration = Immutable.fromJS([
       effect: function(f) { return f.rotation(10); },
       display: ".rotation(10)"
     }, {
-      name: "randomRotation",
+      name: "Random rotation",
       defaultValue: false,
       effect: function(f) { return f.randomRotation(true); },
       display: ".randomRotation(true)"
@@ -27066,7 +27066,6 @@ var Configuration = Immutable.fromJS([
   }
 ]);
 
-
 var FabulousConfigurer = React.createClass({displayName: "FabulousConfigurer",
   getInitialState: function() {
     return {
@@ -27082,13 +27081,42 @@ var FabulousConfigurer = React.createClass({displayName: "FabulousConfigurer",
     var properties = this.props.configuration.map(function(d) { return d.get("property"); });
     var selectedPropertyIndex = this.state.selectedPropertyIndex;
     var onPropertyChange = this.onPropertyChange;
+    var values = this.props.configuration.get(selectedPropertyIndex).get("values");
 
     return (
       React.createElement("div", {className: "configurer"}, 
-        React.createElement(PropertySelector, {properties: properties, selectedPropertyIndex: selectedPropertyIndex, onPropertyChange: onPropertyChange})
+        React.createElement(PropertySelector, {properties: properties, selectedPropertyIndex: selectedPropertyIndex, onPropertyChange: onPropertyChange}), 
+        React.createElement(ValueSelector, {values: values})
       )
     );
 
+  }
+});
+
+var ValueSelector = React.createClass({displayName: "ValueSelector",
+  render: function() {
+    var values = this.props.values;
+    // var selectedValueIndex = values.findIndex(function(d) { return d.get("defaultValue"); });
+    var selectedValueIndex = 0;
+    var valuesJSX = values.map(function(value, valueIndex) {
+      return (
+        React.createElement("div", {className: classNames("value", {
+          "selected": valueIndex === selectedValueIndex,
+          "default": value.get("defaultValue")
+        })}, 
+           value.get("defaultValue") ? React.createElement("span", {className: "default-indicator"}, "(default) ") : null, 
+          value.get("name")
+        )
+      );
+    });
+
+    return (
+      React.createElement("div", {className: "container"}, 
+        React.createElement("div", {className: "values"}, 
+          valuesJSX
+        )
+      )
+    );
   }
 });
 
@@ -27114,7 +27142,13 @@ var PropertySelector = React.createClass({displayName: "PropertySelector",
     return (
       React.createElement("div", {className: "properties"}, 
         React.createElement("div", {className: "container"}, 
-          propertiesJSX
+          React.createElement("div", {className: "properties-container"}, 
+            propertiesJSX, 
+            React.createElement("div", {className: "property-mover", style: {
+              width: (100 / properties.size) + "%",
+              left: ((100 / properties.size) * selectedPropertyIndex) + "%"
+            }})
+          )
         )
       )
     );

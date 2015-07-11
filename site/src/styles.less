@@ -1,12 +1,16 @@
 @import "vendor/bootstrap/less/bootstrap.less";
 // @import url(http://fonts.googleapis.com/css?family=Lato:400,700,900);
 
+@dark: #22262c;
+@highlight: #ffea52;
+
 body {
   font-family: 'Lato', sans-serif;
+  min-width: 1200px;
 }
 
 header {
-  background-color: #22262c;
+  background-color: @dark;
   height: 100px;
 }
 
@@ -19,8 +23,9 @@ header {
 
 .massive-goddamn-title {
   font-weight: 900;
-  color: #22262c;
+  color: @dark;
   padding-top: 180px;
+  margin-bottom: 150px;
   text-align: center;
   text-transform: uppercase;
 
@@ -33,17 +38,55 @@ header {
   }
 }
 
+.container {
+  width: 1170px;
+}
+
 .configurer {
   .properties {
-    border-bottom: 3px solid #22262c;
-    .property {
-      display: inline-block;
-      font-size: 16px;
-      color: #c7cdd6;
+    border-bottom: 3px solid @dark;
+    margin-bottom: 100px;
+    .properties-container {
+      position: relative;
+      .property {
+        display: inline-block;
+        font-size: 16px;
+        color: #c7cdd6;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: color 0.25;
+        &.selected {
+          color: @highlight;
+        }
+      }
+
+      .property-mover {
+        height: 3px;
+        position: absolute;
+        background-color: #dece56;
+        transition: left 0.25s ease-out;
+      }
+    }
+  }
+
+  .values {
+    text-align: right;
+    width: 300px;
+    .value {
+      font-size: 12px;
       text-transform: uppercase;
-      cursor: pointer;
+      margin-bottom: 20px;
+      color: #7c8797;
+      &.default {
+        font-weight: bold;
+        .default-indicator {
+          color: @dark;
+          padding-right: 10px;
+        }
+      }
+
       &.selected {
-        color: #dece56;
+        color: @highlight;
       }
     }
   }

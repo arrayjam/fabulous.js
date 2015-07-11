@@ -6766,6 +6766,7 @@ button.close {
 }
 body {
   font-family: 'Lato', sans-serif;
+  min-width: 1200px;
 }
 header {
   background-color: #22262c;
@@ -6780,6 +6781,7 @@ header {
   font-weight: 900;
   color: #22262c;
   padding-top: 180px;
+  margin-bottom: 150px;
   text-align: center;
   text-transform: uppercase;
 }
@@ -6789,16 +6791,50 @@ header {
 .massive-goddamn-title .massive-goddamn-title-subtitle {
   font-size: 16px;
 }
+.container {
+  width: 1170px;
+}
 .configurer .properties {
   border-bottom: 3px solid #22262c;
+  margin-bottom: 100px;
 }
-.configurer .properties .property {
+.configurer .properties .properties-container {
+  position: relative;
+}
+.configurer .properties .properties-container .property {
   display: inline-block;
   font-size: 16px;
   color: #c7cdd6;
   text-transform: uppercase;
   cursor: pointer;
+  transition: color 0.25;
 }
-.configurer .properties .property.selected {
-  color: #dece56;
+.configurer .properties .properties-container .property.selected {
+  color: #ffea52;
+}
+.configurer .properties .properties-container .property-mover {
+  height: 3px;
+  position: absolute;
+  background-color: #dece56;
+  transition: left 0.25s ease-out;
+}
+.configurer .values {
+  text-align: right;
+  width: 300px;
+}
+.configurer .values .value {
+  font-size: 12px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #7c8797;
+}
+.configurer .values .value.default {
+  font-weight: bold;
+}
+.configurer .values .value.default .default-indicator {
+  color: #22262c;
+  padding-right: 10px;
+}
+.configurer .values .value.selected {
+  color: #ffea52;
 }

@@ -67,7 +67,7 @@ var Configuration = Immutable.fromJS([
       effect: function(f) { return f.rotation(10); },
       display: ".rotation(10)"
     }, {
-      name: "randomRotation",
+      name: "Random rotation",
       defaultValue: false,
       effect: function(f) { return f.randomRotation(true); },
       display: ".randomRotation(true)"
@@ -159,7 +159,6 @@ var Configuration = Immutable.fromJS([
   }
 ]);
 
-
 var FabulousConfigurer = React.createClass({
   getInitialState: function() {
     return {
@@ -175,13 +174,42 @@ var FabulousConfigurer = React.createClass({
     var properties = this.props.configuration.map(function(d) { return d.get("property"); });
     var selectedPropertyIndex = this.state.selectedPropertyIndex;
     var onPropertyChange = this.onPropertyChange;
+    var values = this.props.configuration.get(selectedPropertyIndex).get("values");
 
     return (
       <div className="configurer">
         <PropertySelector properties={properties} selectedPropertyIndex={selectedPropertyIndex} onPropertyChange={onPropertyChange} />
+        <ValueSelector values={values} />
       </div>
     );
 
+  }
+});
+
+var ValueSelector = React.createClass({
+  render: function() {
+    var values = this.props.values;
+    // var selectedValueIndex = values.findIndex(function(d) { return d.get("defaultValue"); });
+    var selectedValueIndex = 0;
+    var valuesJSX = values.map(function(value, valueIndex) {
+      return (
+        <div className={classNames("value", {
+          "selected": valueIndex === selectedValueIndex,
+          "default": value.get("defaultValue")
+        })}>
+          { value.get("defaultValue") ? <span className="default-indicator">(default) </span> : null }
+          {value.get("name")}
+        </div>
+      );
+    });
+
+    return (
+      <div className="container">
+        <div className="values">
+          {valuesJSX}
+        </div>
+      </div>
+    );
   }
 });
 
@@ -207,7 +235,13 @@ var PropertySelector = React.createClass({
     return (
       <div className="properties">
         <div className="container">
-          {propertiesJSX}
+          <div className="properties-container">
+            {propertiesJSX}
+            <div className="property-mover" style={{
+              width: (100 / properties.size) + "%",
+              left: ((100 / properties.size) * selectedPropertyIndex) + "%"
+            }} />
+          </div>
         </div>
       </div>
     );
