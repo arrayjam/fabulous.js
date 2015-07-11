@@ -20,7 +20,7 @@ import {
 
 var instanceIndex = 0;
 export default function () {
-  var cycle = 12,
+  var cycle = 30,
       style = "cubehelix",
       saturation = 0.5,
       setSaturation = false,

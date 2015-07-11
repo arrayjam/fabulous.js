@@ -6,9 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Fabulous.js</title>
-    <link rel="stylesheet" href="/dist/styles.css">
+    <link rel="stylesheet" href="dist/styles.css">
   </head>
   <body>
-    <script type="text/javascript" src="/dist/bundle.js"></script>
+    <header></header>
+    <div class="teaser">
+      <div class="massive-goddamn-title">
+        <div class="massive-goddamn-title-text">
+          <!-- TODO(yuri): Charming/lettering/whatever -->
+          <span>F</span><span>A</span><span>B</span><span>U</span><span>L</span><span>O</span><span>U</span><span>S</span>
+        </div>
+        <div class="massive-goddamn-title-subtitle">Fabulous.js turns selected text into a rainbow. Try it out!</div>
+      </div>
+
+      <div id="configurer"></div>
+    </div>
+    <script type="text/javascript" src="dist/bundle.js"></script>
+    <script type="text/javascript" src="dist/fabulous.js"></script>
+    <script type="text/javascript">
+      console.log("yay", fabulous);
+      fabulous()(".massive-goddamn-title-text");
+    </script>
   </body>
 </html>

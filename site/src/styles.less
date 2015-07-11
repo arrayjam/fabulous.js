@@ -1,1 +1,50 @@
 @import "vendor/bootstrap/less/bootstrap.less";
+// @import url(http://fonts.googleapis.com/css?family=Lato:400,700,900);
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+header {
+  background-color: #22262c;
+  height: 100px;
+}
+
+.teaser {
+  background-color: #2f363f;
+  // TODO(yuri): Temp
+  min-height: 800px;
+  color: white;
+}
+
+.massive-goddamn-title {
+  font-weight: 900;
+  color: #22262c;
+  padding-top: 180px;
+  text-align: center;
+  text-transform: uppercase;
+
+  .massive-goddamn-title-text {
+    font-size: 100px;
+  }
+
+  .massive-goddamn-title-subtitle {
+    font-size: 16px;
+  }
+}
+
+.configurer {
+  .properties {
+    border-bottom: 3px solid #22262c;
+    .property {
+      display: inline-block;
+      font-size: 16px;
+      color: #c7cdd6;
+      text-transform: uppercase;
+      cursor: pointer;
+      &.selected {
+        color: #dece56;
+      }
+    }
+  }
+}
